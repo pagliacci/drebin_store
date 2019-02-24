@@ -1,0 +1,14 @@
+<img 
+    [src]="product.iconUrl" 
+    class="icon">
+<div 
+    class="description-section">
+    <div
+        class="title">
+        {{product.title | uppercase}}
+    </div>
+    <div
+        class="price">
+        {{product.price | dp}}
+    </div>
+</div>

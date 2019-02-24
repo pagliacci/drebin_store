@@ -1,0 +1,5 @@
+- how codec looks in game
+https://www.youtube.com/watch?v=lJxQ5Q-rRpo
+
+- how to count youtube watched time
+https://stackoverflow.com/questions/28751568/youtube-iframe-javascript-track-percentage-of-video-watched

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using drebin_store.Database;
 using drebin_store.Services.Exceptions;
 using drebin_store.Services.Models;
@@ -51,9 +53,14 @@ namespace drebin_store.Services
             return user;
         }
 
-        public User GetById(int id)
+        public Task<User> GetById(int id)
         {
-            return _databaseContext.Users.Find(id);
+            return _databaseContext.Users.FindAsync(id);
+        }
+
+        public List<User> GetAll()
+        {
+            return _databaseContext.Users.ToList();
         }
 
         private (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHashes(string password)

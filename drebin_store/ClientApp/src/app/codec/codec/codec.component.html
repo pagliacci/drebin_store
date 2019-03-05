@@ -1,0 +1,20 @@
+<div 
+    class="codec-header">
+    <div
+        class="codec-frequency">
+        {{ contact.frequency }}
+    </div>
+</div>
+<div>
+    <div
+        class="codec-bio">
+        {{ contact.name }}
+    </div>
+    <img
+        [src]="contact.viewUrl"
+        class="codec-view" />
+</div>
+<div
+    class="codec-text">
+    {{ codecText }}
+</div>

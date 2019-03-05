@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace drebin_store.Controllers
 {
@@ -72,6 +74,27 @@ namespace drebin_store.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+        [HttpGet("getUsers")]
+        public IActionResult GetUsers()
+        {
+            // TODO: cover with admin permissions
+            var users = _userService.GetAll();
+
+            var result = _mapper.Map<List<UserDto>>(users);
+
+            return Ok(result);
+        }
+
+        [HttpGet("getUser")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var user = await _userService.GetById(this.GetCurrentUserId());
+
+            var result = _mapper.Map<UserDto>(user);
+
+            return Ok(result);
         }
     }
 }

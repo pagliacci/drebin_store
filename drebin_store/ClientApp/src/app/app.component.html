@@ -1,4 +1,5 @@
-<nav>
+<nav
+  *ngIf="isLoggedIn | async">
   <a routerLink="/codec" routerLinkActive="active">Codec</a>
   <a routerLink="/store" routerLinkActive="active">Drebin Store</a>
 </nav>

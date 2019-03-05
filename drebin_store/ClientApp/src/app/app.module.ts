@@ -1,8 +1,7 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { CodecComponent } from 'src/app/codec/codec.component';
 import { FinalScreenComponent } from 'src/app/final-screen/final-screen.component';
 import { DrebinPointsPipe } from 'src/app/store/pipes/drebin-points.pipe';
 import { ProductCardComponent } from 'src/app/store/product-card/product-card.component';
@@ -12,7 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { UserService } from './services/user.service';
+import { CodecModule } from './codec/codec.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,6 @@ import { LoginComponent } from './login/login.component';
     StoreComponent,
     ProductCardComponent,
     ProductPreviewComponent,
-    CodecComponent,
     DrebinPointsPipe,
     FinalScreenComponent,
     LoginComponent,
@@ -30,9 +30,13 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CodecModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    UserService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

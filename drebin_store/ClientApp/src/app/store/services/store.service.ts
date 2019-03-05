@@ -1,7 +1,8 @@
 import { Product } from '../models/product';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from 'src/app/services/user.service';
 
 
 const productsMock = <Product[]>[
@@ -25,20 +26,22 @@ const productsMock = <Product[]>[
     }
 ];
 
+const productsUrl = '/api/store/products';
+const orderUrl = '/api/store/order';
+
 @Injectable({
     providedIn: 'root'
 })
 export class StoreService {
-    productsUrl = '/api/store/products';
-
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private userService: UserService) {}
 
     getProductList(): Observable<Product[]> {
-        return of(productsMock);
-        return this.http.get<Product[]>(this.productsUrl);
+        return this.http.get<Product[]>(productsUrl);
     }
 
-    order(productId: number): Observable<void> {
-        return of();
+    order(productId: number) {
+        return this.http.post(orderUrl, productId).toPromise().then(() => {
+            this.userService.updateUserData();
+        });
     }
 }

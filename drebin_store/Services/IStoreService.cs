@@ -7,5 +7,6 @@ namespace drebin_store.Services
     public interface IStoreService
     {
         Task<IEnumerable<Product>> GetProducts();
+        void Order(int productId, int userId);
     }
 }

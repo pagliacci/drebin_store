@@ -1,23 +1,26 @@
 <div
-    class="products-list">
-    <app-product-card 
-        *ngFor="let product of products" 
-        [product]="product"
-        (click)="handleCardClick(product)"
-        [class.selected]="product == selectedProduct">
-    </app-product-card>
-</div>
+    class="products-section">
+    <div
+        class="products-list">
+        <app-product-card 
+            *ngFor="let product of products" 
+            [product]="product"
+            (click)="handleCardClick(product)"
+            [class.selected]="product == selectedProduct">
+        </app-product-card>
+    </div>
 
-<app-product-preview
-    *ngIf="selectedProduct != null"
-    [product]="selectedProduct">
-</app-product-preview>
+    <app-product-preview
+        *ngIf="selectedProduct != null"
+        [product]="selectedProduct">
+    </app-product-preview>
+</div>
 
 <div
     class="store-footer">
     <div
         class="available-points">
-        {{availablePoints}}
+        {{ availablePoints }}
     </div>
     <div
         class="bottom-message">

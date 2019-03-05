@@ -1,0 +1,18 @@
+<nav
+  class="codec-nav">
+  <a 
+    *ngFor="let contact of availableContacts"
+    [routerLink]="['/codec', contact.frequency]"
+    class="codec-link">
+    
+    <div
+      class="contact-frequency">
+      {{ contact.frequency }}
+    </div>
+
+    <div
+      class="contact-name">
+      {{ contact.name | uppercase }}
+    </div>
+  </a>
+</nav>

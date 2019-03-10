@@ -9,7 +9,7 @@ import { AuthGuard } from './guards/auth.guard';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/store',
+    redirectTo: '/codec',
     pathMatch: 'full'
   },
   {

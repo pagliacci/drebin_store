@@ -1,6 +1,24 @@
-<nav
-  *ngIf="isLoggedIn | async">
-  <a routerLink="/codec" routerLinkActive="active">Codec</a>
-  <a routerLink="/store" routerLinkActive="active">Drebin Store</a>
-</nav>
+<div
+  *ngIf="isLoggedIn"
+  class="navigation-header">
+  <nav>
+    <a 
+      class="nav-tab" 
+      routerLink="/codec" 
+      routerLinkActive="active">
+      Codec
+    </a>
+    <a 
+      class="nav-tab" 
+      routerLink="/store" 
+      routerLinkActive="active">
+      Drebin Store
+    </a>
+  </nav>
+  <a 
+    class="logout-link" 
+    (click)="logout()">
+    Logout
+  </a>
+</div>
 <router-outlet></router-outlet>

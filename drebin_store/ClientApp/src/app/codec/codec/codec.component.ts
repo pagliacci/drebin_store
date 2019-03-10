@@ -31,4 +31,8 @@ export class CodecComponent implements OnInit {
 
         this.codecText = this.codecService.getCodectText(this.contact, currentUser.mainQuestStage);
     }
+
+    nextReplica() {
+        this.codecText = this.codecService.getCodectText(this.contact, this.userService.currentUser.mainQuestStage);
+    }
 }

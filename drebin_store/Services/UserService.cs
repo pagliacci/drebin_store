@@ -23,7 +23,7 @@ namespace drebin_store.Services
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = _databaseContext.Users.SingleOrDefault(u => u.Username == username);
+            var user = _databaseContext.Users.SingleOrDefault(u => u.Username == username.ToLower());
 
             if (user == null)
                 return null;

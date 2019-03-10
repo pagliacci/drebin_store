@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from './services/authentication.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +8,18 @@ import { AuthenticationService } from './services/authentication.service';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  isLoggedIn: Observable<boolean>;
+  isLoggedIn: boolean;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(
+    private userService: UserService) {}
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn;
+    this.userService.currentUserSubj.subscribe(u => {
+      this.isLoggedIn = u != null;
+    });
+  }
+
+  logout() {
+    this.userService.logout();
   }
 }

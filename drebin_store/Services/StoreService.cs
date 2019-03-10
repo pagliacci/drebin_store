@@ -19,7 +19,7 @@ namespace drebin_store.Services
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products.Where(p => p.NumberInStock > 0).ToListAsync();
         }
 
         public void Order(int productId, int userId)

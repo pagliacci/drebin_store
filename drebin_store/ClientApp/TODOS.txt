@@ -1,0 +1,4 @@
+Add error handling for login/register
+Check username.toLower on server side
+Replace UserService currentUser with subject.stream
+Remove token on 401 and redirect to login

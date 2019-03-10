@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'app-login',
@@ -13,12 +13,13 @@ export class LoginComponent implements OnInit {
     returnUrl: string;
     isLoading = false;
     submitted = false;
+    error: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
-        private router: Router,
-        private authenticationService: AuthenticationService) {}
+        private userService: UserService,
+        private router: Router) {}
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -26,7 +27,16 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         });
 
+        this.loginForm.controls.username.valueChanges
+            .subscribe(r => this.clearLoginError());
+        this.loginForm.controls.password.valueChanges
+            .subscribe(r => this.clearLoginError());
+
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
+
+    private clearLoginError() {
+        this.error = '';
     }
 
     onSubmit() {
@@ -38,14 +48,14 @@ export class LoginComponent implements OnInit {
 
         this.isLoading = true;
         const controls = this.loginForm.controls;
-        this.authenticationService.login(controls.username.value, controls.password.value)
+        this.userService.login(controls.username.value, controls.password.value)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    // TODO: show error
                     this.isLoading = false;
+                    this.error = 'Unable to login. Check your login and password';
                 });
     }
 }

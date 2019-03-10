@@ -26,6 +26,7 @@ export class StoreComponent implements OnInit {
 
     ngOnInit() {
         this.getProducts();
+        this.userService.currentUserSubj.subscribe(u => this.availablePoints = u.drebinPoints);
     }
 
     getProducts(): void {

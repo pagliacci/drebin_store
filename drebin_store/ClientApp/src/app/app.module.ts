@@ -14,6 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { UserService } from './services/user.service';
 import { CodecModule } from './codec/codec.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { CodecModule } from './codec/codec.module';
     ReactiveFormsModule,
     HttpClientModule,
     CodecModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     UserService,

@@ -1,0 +1,10 @@
+<app-users-list
+    *ngIf="selectedUser == null"
+    [users]="users$ | async"
+    (userSelected)="handleUserSelected($event)">
+</app-users-list>
+<app-user-details
+    *ngIf="selectedUser != null"
+    [user]="selectedUser"
+    (goBackClick)="handleDetailsBackClick()">
+</app-user-details>

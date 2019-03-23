@@ -13,5 +13,13 @@
         public decimal DrebinPoints { get; set; }
 
         public MainQuestStageEnum MainQuestStage { get; set; }
+
+        // Could be moved to permissions entity
+
+        public bool CanManageUsers { get; set; }
+
+        public bool CanManageOrders { get; set; }
+
+        public bool CanManageProducts { get; set; }
     }
 }

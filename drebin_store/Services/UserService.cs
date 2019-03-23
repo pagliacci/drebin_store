@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using drebin_store.Database;
 using drebin_store.Services.Exceptions;
 using drebin_store.Services.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace drebin_store.Services
 {
@@ -18,12 +19,12 @@ namespace drebin_store.Services
             _databaseContext = context;
         }
 
-        public User Authenticate(string username, string password)
+        public async Task<User> Authenticate(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = _databaseContext.Users.SingleOrDefault(u => u.Username == username.ToLower());
+            var user = await _databaseContext.Users.SingleOrDefaultAsync(u => u.Username == username.ToLower());
 
             if (user == null)
                 return null;
@@ -47,10 +48,25 @@ namespace drebin_store.Services
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _databaseContext.Users.Add(user);
+            var savedUser = _databaseContext.Users.Add(user).Entity;
             _databaseContext.SaveChanges();
 
-            return user;
+            return savedUser;
+        }
+
+        public User Update(User user)
+        {
+            var existingUser = _databaseContext.Users.SingleOrDefault(u => u.Id == user.Id);
+            if (existingUser == null)
+                throw new AppException("Not existing user");
+
+            existingUser.DrebinPoints = user.DrebinPoints; // TODO: prevent admins from decreasing number of points?
+            existingUser.MainQuestStage = user.MainQuestStage;
+
+            var updatedUser = _databaseContext.Users.Update(existingUser).Entity;
+            _databaseContext.SaveChanges();
+
+            return updatedUser;
         }
 
         public Task<User> GetById(int id)
@@ -58,9 +74,9 @@ namespace drebin_store.Services
             return _databaseContext.Users.FindAsync(id);
         }
 
-        public List<User> GetAll()
+        public async Task<List<User>> GetAll()
         {
-            return _databaseContext.Users.ToList();
+            return await _databaseContext.Users.ToListAsync();
         }
 
         private (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHashes(string password)

@@ -10,10 +10,10 @@ namespace drebin_store.Services.Models
 
         public Product Product { get; set; }
 
-        public bool IsCompleted { get; set; }
+        public OrderStateEnum OrderState { get; set; }
 
         public DateTime OrderTimeStamp { get; set; }
 
-        public DateTime CompletionTimeStamp { get; set; }
+        public DateTime? CompletionTimeStamp { get; set; }
     }
 }

@@ -10,7 +10,8 @@ const appRoutes: Routes = [
   {
     path: '',
     redirectTo: '/codec',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: 'store',

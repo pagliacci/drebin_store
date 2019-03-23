@@ -1,0 +1,46 @@
+<table
+  class="orders-list">
+  <thead
+    class="header">
+    <tr>
+      <th>
+        Username
+      </th>
+      <th>
+        Product
+      </th>
+      <th>
+        Order State
+      </th>
+      <th>
+        Order Date
+      </th>
+      <th>
+        Completion Date
+      </th>
+    </tr>
+  </thead>
+  <tbody
+    class="body">
+    <tr
+      *ngFor="let order of orders"
+      (click)="handleClick(order)">
+      <td>
+        {{ order.user.username }}
+      </td>
+      <td>
+        {{ order.product.title }}
+      </td>
+      <td
+        class="{{'order-state-' + order.orderState}}">
+        {{ order.orderState | orderState }}
+      </td>
+      <td>
+        {{ order.orderTimeStamp | date:'d LLL HH:mm' }}
+      </td>
+      <td>
+        {{ order.completionTimeStamp | date:'d LLL HH:mm' }}
+      </td>
+    </tr>
+  </tbody>
+</table>

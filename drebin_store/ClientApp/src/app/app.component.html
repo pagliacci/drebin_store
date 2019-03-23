@@ -2,6 +2,13 @@
   *ngIf="isLoggedIn"
   class="navigation-header">
   <nav>
+    <a
+      *ngIf="user.isAdmin"
+      class="nav-tab"
+      routerLink="/administration"
+      routerLinkActive="aactive">
+      Administration
+    </a>
     <a 
       class="nav-tab" 
       routerLink="/codec" 

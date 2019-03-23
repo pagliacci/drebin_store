@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CodecModule } from './codec.module';
 import { CodecContacts } from './codec-contacts';
 import { CodecContact } from './models/codec-contact';
 import { RandomQuotes } from './random-quotes';
+import { MainQuestStage } from '../models/main-quest-stage';
 
 @Injectable({
     providedIn: 'root' // TODO: provide for code module?

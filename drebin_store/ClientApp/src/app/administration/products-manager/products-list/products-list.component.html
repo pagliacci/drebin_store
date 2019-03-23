@@ -1,0 +1,33 @@
+<table
+  class="products-list">
+  <thead
+    class="header">
+    <tr>
+      <th>
+        Title
+      </th>
+      <th>
+        Price
+      </th>
+      <th>
+        Number in stock
+      </th>
+    </tr>
+  </thead>
+  <tbody
+    class="body">
+    <tr
+      *ngFor="let product of products"
+      (click)="handleClick(product)">
+      <td>
+        {{ product.title }}
+      </td>
+      <td>
+        {{ product.price }}
+      </td>
+      <td>
+        {{ product.numberInStock }}
+      </td>
+    </tr>
+  </tbody>
+</table>

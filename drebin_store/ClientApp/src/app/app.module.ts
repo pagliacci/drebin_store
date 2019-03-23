@@ -16,6 +16,7 @@ import { UserService } from './services/user.service';
 import { CodecModule } from './codec/codec.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AdministrationModule } from './administration/administration.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { environment } from '../environments/environment';
     ReactiveFormsModule,
     HttpClientModule,
     CodecModule,
+    AdministrationModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

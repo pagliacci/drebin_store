@@ -29,7 +29,8 @@ export class UserService {
 
     login(username: string, password: string) {
         return this.http.post<User>(loginUrl, { username: username, password: password })
-            .pipe(map(user => {
+            .pipe(map(u => {
+                const user = Object.assign(new User(), u);
                 if (user && user.token) {
                     this.currentUserSubj.next(user);
                     this.localStorageUser = user;
@@ -50,21 +51,27 @@ export class UserService {
     }
 
     updateUserData(): void {
-        this.http.get<User>(getUserUrl).toPromise().then(user => {
-            const currentUser = this.currentUser;
-            currentUser.drebinPoints = user.drebinPoints;
-            currentUser.mainQuestStage = user.mainQuestStage;
-            this.localStorageUser = currentUser;
-            this.currentUserSubj.next(currentUser);
+        this.http.get<User>(getUserUrl).toPromise().then(u => {
+            const user = Object.assign(new User(), u);
+            user.token = this.currentUser.token;
+            this.localStorageUser = user;
+            this.currentUserSubj.next(user);
         });
     }
 
-    get currentUserDecodedToken(): JwtToken {
-        return this.currentUser != null ? JwtDecode<JwtToken>(this.currentUser.token) : null;
+    private get currentUserDecodedToken(): JwtToken {
+        return this.currentUser != null && this.currentUser.token != null
+            ? JwtDecode<JwtToken>(this.currentUser.token)
+            : null;
+    }
+
+    isTokenValid(): boolean {
+        const token = this.currentUserDecodedToken;
+        return token != null && Date.now() / 1000 < token.exp;
     }
 
     private get localStorageUser(): User {
-        return JSON.parse(localStorage.getItem('currentUser'));
+        return Object.assign(new User(), JSON.parse(localStorage.getItem('currentUser')));
     }
 
     private set localStorageUser(user: User) {

@@ -134,6 +134,7 @@ namespace drebin_store
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start-prod");
                 }
             });
         }

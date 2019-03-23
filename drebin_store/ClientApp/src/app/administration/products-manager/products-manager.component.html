@@ -1,0 +1,11 @@
+<app-products-list
+  *ngIf="selectedProduct == null"
+  [products]="products$ | async"
+  (productSelected)="handleProductSelected($event)">
+</app-products-list>
+
+<app-product-details
+  *ngIf="selectedProduct != null"
+  [product]="selectedProduct"
+  (goBackClick)="handleDetailsBackClick()">
+</app-product-details>

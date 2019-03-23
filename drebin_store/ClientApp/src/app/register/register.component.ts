@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
+    error: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -40,8 +41,8 @@ export class RegisterComponent implements OnInit {
                     this.router.navigate(['/login']);
                 },
                 error => {
-                    // TODO: show error
                     this.loading = false;
+                    this.error = 'This login is already taken';
                 }
             );
     }

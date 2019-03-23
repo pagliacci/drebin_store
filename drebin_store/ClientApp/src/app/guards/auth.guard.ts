@@ -13,8 +13,7 @@ export class AuthGuard implements CanActivate {
         private userService: UserService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        const token = this.userService.currentUserDecodedToken;
-        if (token != null && Date.now() / 1000 < token.exp) {
+        if (this.userService.isTokenValid()) {
             return true;
         }
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});

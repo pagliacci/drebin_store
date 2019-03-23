@@ -11,7 +11,8 @@ namespace drebin_store.Helpers
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Product, ProductDto>();
             CreateMap<Order, OrderDto>();
-            CreateMap<MainQuestStageEnum, MainQuestStageEnumDto>();
+            CreateMap<MainQuestStageEnum, MainQuestStageEnumDto>().ReverseMap();
+            CreateMap<OrderStateEnum, OrderStateEnumDto>().ReverseMap();
         }
     }
 }

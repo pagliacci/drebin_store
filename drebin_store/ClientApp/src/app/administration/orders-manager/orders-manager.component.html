@@ -1,0 +1,11 @@
+<app-orders-list
+  *ngIf="selectedOrder == null"
+  [orders]="orders$ | async"
+  (orderSelected)="handleOrderSelected($event)">
+</app-orders-list>
+
+<app-order-details
+  *ngIf="selectedOrder != null"
+  [order]="selectedOrder"
+  (goBackClick)="handleDetailsBackClick()">
+</app-order-details>

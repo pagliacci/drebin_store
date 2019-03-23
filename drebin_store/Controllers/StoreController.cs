@@ -35,7 +35,7 @@ namespace drebin_store.Controllers
         [HttpPost("[action]")]
         public IActionResult Order([FromBody]int productId)
         {
-            _storeService.Order(productId, this.GetCurrentUserId());
+            _storeService.PlaceOrder(productId, this.GetCurrentUserId());
             return Ok();
         }
     }

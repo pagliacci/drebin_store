@@ -1,0 +1,52 @@
+<table
+  class="users-list">
+  <thead
+    class="header">
+    <tr>
+      <th>
+        Username
+      </th>
+      <th>
+        Quest Stage
+      </th>
+      <th>
+        DP
+      </th>
+      <th>
+        Can Manage Users
+      </th>
+      <th>
+        Can Manage Orders
+      </th>
+      <th>
+        Can Manage Products
+      </th>
+    </tr>
+  </thead>
+  <tbody
+    class="body">
+    <tr
+      *ngFor="let user of users"
+      (click)="handleClick(user)">
+      <td>
+        {{ user.username }}
+      </td>
+      <td>
+        {{ user.mainQuestStage }}
+      </td>
+      <td>
+        {{ user.drebinPoints }}
+      </td>
+      <!-- TODO: replace with optimized (https://icomoon.io/app/#/select/font) font awesome -->
+      <td>
+        {{ user.canManageUsers ? 'V' : 'X' }}
+      </td>
+      <td>
+        {{ user.canManageOrders ? 'V' : 'X' }}
+      </td>
+      <td>
+        {{ user.canManageProducts ? 'V' : 'X' }}
+      </td>
+    </tr>
+  </tbody>
+</table>

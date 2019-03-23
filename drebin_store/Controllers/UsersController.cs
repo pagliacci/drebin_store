@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -33,9 +32,9 @@ namespace drebin_store.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]UserDto userDto)
+        public async Task<IActionResult> Authenticate([FromBody]UserDto userDto)
         {
-            var user = _userService.Authenticate(userDto.Username, userDto.Password);
+            var user = await _userService.Authenticate(userDto.Username, userDto.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -74,17 +73,6 @@ namespace drebin_store.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-        }
-
-        [HttpGet("getUsers")]
-        public IActionResult GetUsers()
-        {
-            // TODO: cover with admin permissions
-            var users = _userService.GetAll();
-
-            var result = _mapper.Map<List<UserDto>>(users);
-
-            return Ok(result);
         }
 
         [HttpGet("getUser")]

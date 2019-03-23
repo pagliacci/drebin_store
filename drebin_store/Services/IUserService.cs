@@ -6,12 +6,14 @@ namespace drebin_store.Services
 {
     public interface IUserService
     {
-        User Authenticate(string username, string password);
+        Task<User> Authenticate(string username, string password);
 
         User Create(User user, string password);
 
+        User Update(User user);
+
         Task<User> GetById(int id);
 
-        List<User> GetAll();
+        Task<List<User>> GetAll();
     }
 }

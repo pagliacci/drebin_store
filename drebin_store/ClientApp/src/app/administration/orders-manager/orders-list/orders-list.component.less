@@ -1,0 +1,25 @@
+@import '../../../../styles-vars.less';
+
+:host {
+    .orders-list {
+        border: @border;
+        border-collapse: collapse;
+        text-align: center;
+
+        tr, th, td {
+            border: @border;
+        }
+
+        th, td {
+            padding: 5px;
+        }
+
+        .order-state-1 { // completed
+            background-color: green;
+        }
+
+        .order-state-2 { // cancelled
+            background-color: red;
+        }
+    }
+}

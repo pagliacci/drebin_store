@@ -1,0 +1,38 @@
+<nav>
+  <a
+    *ngIf="user.canManageUsers"
+    class="nav-tab"
+    routerLink="/administration"
+    routerLinkActive="aactive">
+    Users
+  </a>
+  <a 
+    *ngIf="user.canManageUsers"
+    class="nav-tab" 
+    routerLink="/administration/groups" 
+    routerLinkActive="active">
+    Groups
+  </a>
+  <a
+    *ngIf="user.canManageOrders" 
+    class="nav-tab" 
+    routerLink="/administration/orders" 
+    routerLinkActive="active">
+    Orders
+  </a>
+  <a
+    *ngIf="user.canManageProducts"
+    class="nav-tab"
+    routerLink="/administration/products"
+    routerLinkActive="active">
+    Products
+  </a>
+  <!-- <a
+    *ngIf="user.canAudit"
+    class="nav-tab"
+    routerLink="/administration/audit"
+    routerLinkActive="active">
+    Audit
+  </a> -->
+</nav>
+<router-outlet></router-outlet>

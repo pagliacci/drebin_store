@@ -19,14 +19,26 @@ namespace drebin_store.Migrations
                 .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("drebin_store.Services.Models.Group", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Groups");
+                });
+
             modelBuilder.Entity("drebin_store.Services.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CompletionTimeStamp");
+                    b.Property<DateTime?>("CompletionTimeStamp");
 
-                    b.Property<bool>("IsCompleted");
+                    b.Property<int>("OrderState");
 
                     b.Property<DateTime>("OrderTimeStamp");
 
@@ -70,7 +82,15 @@ namespace drebin_store.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("CanManageOrders");
+
+                    b.Property<bool>("CanManageProducts");
+
+                    b.Property<bool>("CanManageUsers");
+
                     b.Property<decimal>("DrebinPoints");
+
+                    b.Property<int?>("GroupId");
 
                     b.Property<int>("MainQuestStage");
 
@@ -81,6 +101,8 @@ namespace drebin_store.Migrations
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("Users");
                 });
@@ -94,6 +116,13 @@ namespace drebin_store.Migrations
                     b.HasOne("drebin_store.Services.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("drebin_store.Services.Models.User", b =>
+                {
+                    b.HasOne("drebin_store.Services.Models.Group")
+                        .WithMany("Users")
+                        .HasForeignKey("GroupId");
                 });
 #pragma warning restore 612, 618
         }

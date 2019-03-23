@@ -22,7 +22,7 @@ namespace drebin_store.Services
             return await _context.Products.Where(p => p.NumberInStock > 0).ToListAsync();
         }
 
-        public void Order(int productId, int userId)
+        public void PlaceOrder(int productId, int userId)
         {
             var user = _context.Users.Find(userId);
             var product = _context.Products.Find(productId);
@@ -34,7 +34,7 @@ namespace drebin_store.Services
             {
                 Product = product,
                 User = user,
-                IsCompleted = false,
+                OrderState = OrderStateEnum.InProgress,
                 OrderTimeStamp = DateTime.UtcNow
             };
 
@@ -74,14 +74,53 @@ namespace drebin_store.Services
             }
         }
 
-        public async Task<IEnumerable<Order>> GetOrders()
+        public async Task<IEnumerable<Order>> GetOrders(int? userId = null, OrderStateEnum? orderState = null)
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Orders
+                .Where(o => userId == null || o.User.Id == userId)
+                .Where(o => orderState == null || o.OrderState == orderState)
+                .Include(o => o.User)
+                .Include(o => o.Product)
+                .OrderBy(o => o.Id)
+                .ToListAsync();
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersForUser(int userId)
+        public async Task<Order> CompleteOrder(int orderId, OrderStateEnum orderState)
         {
-            return await _context.Orders.Where(o => o.User.Id == userId).ToListAsync();
+            var order = await _context.Orders.Include(o => o.Product).SingleOrDefaultAsync(o => o.Id == orderId);
+            var product = order.Product;
+
+            if (order == null)
+                throw new ApplicationException($"Order with id: {orderId} doesn't exist");
+
+            if (order.OrderState == OrderStateEnum.Completed || order.OrderState == OrderStateEnum.Cancelled)
+                throw new ApplicationException("Completed order state cannot be changed");
+
+            if (orderState == OrderStateEnum.Cancelled)
+            {
+                // TODO: check if separate product update call required
+                product.NumberInStock++;
+            }
+
+            order.OrderState = orderState;
+            order.CompletionTimeStamp = DateTime.UtcNow;
+
+            var updatedOrder = _context.Update(order).Entity;
+            _context.SaveChanges();
+
+            return updatedOrder;
+        }
+
+        public async Task<Product> UpdateProduct(Product product)
+        {
+            var existingProduct = await _context.Products.SingleOrDefaultAsync(p => p.Id == product.Id);
+
+            if (existingProduct == null)
+                throw new ApplicationException($"Product with id: {product.Id} doesn't exist");
+
+            existingProduct.Price = product.Price;
+
+            return _context.Products.Update(existingProduct).Entity;
         }
     }
 }

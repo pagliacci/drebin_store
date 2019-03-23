@@ -1,0 +1,46 @@
+<!-- TODO: change to properly styled link -->
+<button
+  (click)="handleGoBackClick()">
+  Go back
+</button>
+<div
+  class="user-info">
+  <div>
+    Username: {{ user.username }}
+  </div>
+  <div>
+    Quest Stage: {{ user.mainQuestStage }}
+  </div>
+  <div>
+    Drebin Points: {{ user.drebinPoints }}
+  </div>
+</div>
+<div
+  class="quest-stages-manager">
+  <h4>
+    Quest Stage
+  </h4>
+  <div
+    class="quest-stages">
+    <button
+      *ngFor="let questStage of questStages"
+      [class.disabled]="!questStage.isAvailable"
+      (click)="updateMainQuestStage(questStage)">
+      {{ questStage.title }}
+    </button>
+  </div>
+</div>
+<div
+  class="drebin-points-manager">
+  <h4>
+    Grant Drebin Points
+  </h4>
+  <div
+    class="dp-increments">
+    <button
+      *ngFor="let increment of dpIncrements"
+      (click)="grantPoints(increment)">
+      {{ increment }}
+    </button>
+  </div>
+</div>

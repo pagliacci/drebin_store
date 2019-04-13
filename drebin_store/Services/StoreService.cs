@@ -22,7 +22,7 @@ namespace drebin_store.Services
             return await _context.Products.Where(p => p.NumberInStock > 0).ToListAsync();
         }
 
-        public void PlaceOrder(int productId, int userId)
+        public Order PlaceOrder(int productId, int userId)
         {
             var user = _context.Users.Find(userId);
             var product = _context.Products.Find(productId);
@@ -72,6 +72,8 @@ namespace drebin_store.Services
                     }
                 }
             }
+
+            return order;
         }
 
         public async Task<IEnumerable<Order>> GetOrders(int? userId = null, OrderStateEnum? orderState = null)

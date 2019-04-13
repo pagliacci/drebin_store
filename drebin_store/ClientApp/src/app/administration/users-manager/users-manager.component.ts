@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UsersManagerService } from './services/users-manager.service';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users-manager',
   templateUrl: './users-manager.component.html',
-  styleUrls: ['./users-manager.component.less']
+  styleUrls: ['./users-manager.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UsersManagerComponent implements OnInit {
+export class UsersManagerComponent implements OnInit, OnDestroy {
 
-  users$: Observable<User[]>;
+  users: User[];
   selectedUser: User;
 
-  constructor(private usersManagerService: UsersManagerService) { }
+  serviceSubscription: Subscription;
+
+  constructor(private usersManagerService: UsersManagerService, private changeDetector: ChangeDetectorRef) { }
 
   handleUserSelected(user: User) {
     this.selectedUser = user;
@@ -24,6 +27,14 @@ export class UsersManagerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.users$ = this.usersManagerService.getUsers();
+    this.serviceSubscription = this.usersManagerService.users.subscribe((users) => {
+      this.users = users;
+      this.selectedUser = this.selectedUser != null ? users.find(u => u.id === this.selectedUser.id) : null;
+      this.changeDetector.detectChanges();
+    });
+  }
+
+  ngOnDestroy() {
+    this.serviceSubscription.unsubscribe();
   }
 }

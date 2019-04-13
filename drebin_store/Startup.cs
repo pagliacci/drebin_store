@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
+using drebin_store.SignalRHubs;
+using Newtonsoft.Json.Serialization;
 
 namespace drebin_store
 {
@@ -74,11 +76,17 @@ namespace drebin_store
 
             // Contexts setup
             services.AddDbContext<DatabaseContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")),
+                ServiceLifetime.Transient);
 
             // Services setup
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoreService, StoreService>();
+
+            services.AddSignalR()
+                .AddJsonProtocol(options => {
+                    //options.PayloadSerializerSettings.ContractResolver = new DefaultContractResolver();
+                });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -112,6 +120,11 @@ namespace drebin_store
             });
 
             app.UseAuthentication();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<SignalRHub>("/signalRHub");
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

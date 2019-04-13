@@ -9,4 +9,15 @@ export class Order {
     orderState: OrderState;
     orderTimeStamp: Date;
     completionTimeStamp: Date;
+
+    constructor(order?: Order) {
+        if (order != null) {
+            this.id = order.id;
+            this.user = order.user;
+            this.product = order.product;
+            this.orderState = order.orderState;
+            this.orderTimeStamp = order.orderTimeStamp;
+            this.completionTimeStamp = order.completionTimeStamp;
+        }
+    }
 }

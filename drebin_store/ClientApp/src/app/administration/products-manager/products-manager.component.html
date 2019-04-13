@@ -1,6 +1,6 @@
 <app-products-list
   *ngIf="selectedProduct == null"
-  [products]="products$ | async"
+  [products]="products"
   (productSelected)="handleProductSelected($event)">
 </app-products-list>
 

@@ -41,7 +41,7 @@ export class StoreService {
 
     order(productId: number) {
         return this.http.post(orderUrl, productId).toPromise().then(() => {
-            this.userService.updateUserData();
+            // this.userService.updateUserData();
         });
     }
 }

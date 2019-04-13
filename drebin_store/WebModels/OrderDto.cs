@@ -1,7 +1,7 @@
 ﻿using drebin_store.WebModels;
 using System;
 
-namespace drebin_store.Services.Models
+namespace drebin_store.WebModels
 {
     public class OrderDto
     {

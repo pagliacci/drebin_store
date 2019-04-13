@@ -54,9 +54,9 @@ namespace drebin_store.Services
             return savedUser;
         }
 
-        public User Update(User user)
+        public async Task<User> Update(User user)
         {
-            var existingUser = _databaseContext.Users.SingleOrDefault(u => u.Id == user.Id);
+            var existingUser = await _databaseContext.Users.SingleOrDefaultAsync(u => u.Id == user.Id);
             if (existingUser == null)
                 throw new AppException("Not existing user");
 

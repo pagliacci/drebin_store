@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/store/models/product';
 import { map } from 'rxjs/operators';
+import { SignalrService } from 'src/app/services/signalr.service';
 
 const getProductsUrl = '/api/store/products';
 const updaProductUrl = '/api/administration/updateProduct';
@@ -11,9 +12,42 @@ const updaProductUrl = '/api/administration/updateProduct';
   providedIn: 'root'
 })
 export class ProductsManagerService {
-  constructor(private http: HttpClient) { }
 
-  getProducts(): Observable<Product[]> {
+  products: Observable<Product[]>;
+
+  constructor(private http: HttpClient, private signalrService: SignalrService) {
+    this.products = Observable.create((observer) => {
+      let products: Product[];
+      const subscription = this.getProducts().subscribe((data) => {
+        products = data;
+        observer.next(products);
+        subscription.unsubscribe();
+      });
+
+      signalrService.product.subscribe((product) => {
+        products = products.map(p => {
+          const mappedProduct = new Product(p);
+          if (p.id === product.id) {
+            mappedProduct.numberInStock = product.numberInStock;
+          }
+          return mappedProduct;
+        });
+        // const userToUpdate = users.find(u => u.id === user.id);
+        // if (userToUpdate != null) {
+        //   // userToUpdate.canManageOrders = user.canManageOrders;
+        //   // userToUpdate.canManageProducts = user.canManageProducts;
+        //   // userToUpdate.canManageUsers = user.canManageUsers;
+        //   userToUpdate.mainQuestStage = user.mainQuestStage;
+        //   userToUpdate.drebinPoints = user.drebinPoints;
+        // } else {
+        //   users.push(user);
+        // }
+        observer.next(products);
+      });
+    });
+  }
+
+  private getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(getProductsUrl);
   }
 

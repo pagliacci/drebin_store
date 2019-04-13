@@ -20,8 +20,7 @@ export class StoreComponent implements OnInit {
     }
 
     handleOrderClick() {
-        this.storeService.order(this.selectedProduct.id)
-            .then(() => this.availablePoints = this.userService.currentUser.drebinPoints);
+        this.storeService.order(this.selectedProduct.id);
     }
 
     ngOnInit() {

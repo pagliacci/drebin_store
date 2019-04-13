@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using drebin_store.Services;
 using drebin_store.Services.Models;
+using drebin_store.SignalRHubs;
 using drebin_store.WebModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,12 +20,14 @@ namespace drebin_store.Controllers
     {
         private readonly IStoreService _storeService;
         private readonly IUserService _userService;
+        private readonly IHubContext<SignalRHub, ITypedHubClient> _hubContext;
         private readonly IMapper _mapper;
 
-        public AdministrationController(IStoreService storeService, IUserService userService, IMapper mapper)
+        public AdministrationController(IStoreService storeService, IUserService userService, IHubContext<SignalRHub, ITypedHubClient> hubContext, IMapper mapper)
         {
             _storeService = storeService;
             _userService = userService;
+            _hubContext = hubContext;
             _mapper = mapper;
         }
 
@@ -41,11 +45,16 @@ namespace drebin_store.Controllers
 
         // method to add drebin points and update stage of quest
         [HttpPost("[action]")]
-        public UserDto UpdateUser(UserDto userDto)
+        public async Task<UserDto> UpdateUser(UserDto userDto)
         {
             var user = _mapper.Map<User>(userDto);
-            var updatedUser = _userService.Update(user);
-            return _mapper.Map<UserDto>(updatedUser);
+            var updatedUser = await _userService.Update(user);
+
+            var updatedUserDto = _mapper.Map<UserDto>(updatedUser);
+
+            await _hubContext.Clients.All.UpdateUser(updatedUserDto);
+
+            return updatedUserDto;
         }
 
         [HttpGet("[action]")]
@@ -60,14 +69,25 @@ namespace drebin_store.Controllers
         public async Task<OrderDto> CompleteOrder(OrderDto orderDto)
         {
             var order = await _storeService.CompleteOrder(orderDto.Id, _mapper.Map<OrderStateEnum>(orderDto.OrderState));
-            return _mapper.Map<OrderDto>(order);
+
+            var responseDto = _mapper.Map<OrderDto>(order);
+
+            await _hubContext.Clients.All.UpdateOrder(responseDto);
+            await _hubContext.Clients.All.UpdateProduct(responseDto.Product);
+
+            return responseDto;
         }
 
         [HttpPost("[action]")]
         public async Task<ProductDto> UpdateProduct(ProductDto productDto)
         {
             var product = await _storeService.UpdateProduct(_mapper.Map<Product>(productDto));
-            return _mapper.Map<ProductDto>(product);
+
+            var responseDto = _mapper.Map<ProductDto>(product);
+
+            await _hubContext.Clients.All.UpdateProduct(responseDto);
+
+            return responseDto;
         }
     }
 }

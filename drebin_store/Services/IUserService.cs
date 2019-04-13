@@ -10,7 +10,7 @@ namespace drebin_store.Services
 
         User Create(User user, string password);
 
-        User Update(User user);
+        Task<User> Update(User user);
 
         Task<User> GetById(int id);
 

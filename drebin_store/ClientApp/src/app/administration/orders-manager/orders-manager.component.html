@@ -1,6 +1,6 @@
 <app-orders-list
   *ngIf="selectedOrder == null"
-  [orders]="orders$ | async"
+  [orders]="orders"
   (orderSelected)="handleOrderSelected($event)">
 </app-orders-list>
 

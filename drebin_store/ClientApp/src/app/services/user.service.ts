@@ -6,6 +6,7 @@ import { JwtToken } from '../models/jwt-token';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SignalrService } from './signalr.service';
 
 const loginUrl = './api/users/authenticate';
 const registerUrl = './api/users/register';
@@ -21,10 +22,16 @@ export class UserService {
         return this.currentUserSubj.getValue();
     }
 
-    constructor(
-        private http: HttpClient,
-        private router: Router) {
+    constructor(private http: HttpClient, private router: Router, private signalrService: SignalrService) {
         this.currentUserSubj = new BehaviorSubject(this.localStorageUser);
+
+        signalrService.user.subscribe(user => {
+            if (user.id === this.currentUser.id) {
+                user.token = this.currentUser.token;
+                this.localStorageUser = user;
+                this.currentUserSubj.next(user);
+            }
+        });
     }
 
     login(username: string, password: string) {

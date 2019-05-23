@@ -13,8 +13,10 @@ import { OrdersListComponent } from './orders-manager/orders-list/orders-list.co
 import { OrderDetailsComponent } from './orders-manager/order-details/order-details.component';
 import { ProductsListComponent } from './products-manager/products-list/products-list.component';
 import { ProductDetailsComponent } from './products-manager/product-details/product-details.component';
+import { ProductAdderComponent } from './products-manager/product-adder/product-adder.component';
 import { AuditComponent } from './audit/audit.component';
 import { OrderStatePipe } from './orders-manager/pipes/orders-state.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,12 +31,14 @@ import { OrderStatePipe } from './orders-manager/pipes/orders-state.pipe';
     OrderDetailsComponent,
     ProductsListComponent,
     ProductDetailsComponent,
+    ProductAdderComponent,
     AuditComponent,
     OrderStatePipe,
   ],
   imports: [
     CommonModule,
-    AdministrationRoutingModule
+    AdministrationRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class AdministrationModule { }

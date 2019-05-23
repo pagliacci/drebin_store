@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyDnfReZsiNVcTF-YZp9_C3xG8nnj3NLRdY',
+    authDomain: 'drebin-store.firebaseapp.com',
+    databaseURL: 'https://drebin-store.firebaseio.com',
+    projectId: 'drebin-store',
+    storageBucket: 'drebin-store.appspot.com',
+    messagingSenderId: '1056515409807'
+  }
 };
 
 /*

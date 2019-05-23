@@ -1,5 +1,5 @@
 <app-products-list
-  *ngIf="selectedProduct == null"
+  *ngIf="selectedProduct == null && !isProductAdderShown"
   [products]="products"
   (productSelected)="handleProductSelected($event)">
 </app-products-list>
@@ -9,3 +9,15 @@
   [product]="selectedProduct"
   (goBackClick)="handleDetailsBackClick()">
 </app-product-details>
+
+<button
+  *ngIf="selectedProduct == null && !isProductAdderShown"
+  (click)="handleAddProductButtonClick()">
+  Add Product
+</button>
+
+<app-product-adder
+  *ngIf="isProductAdderShown"
+  (productAdded)="handleProductAdded()"
+  (cancelClick)="handleProductAddCancel()">
+</app-product-adder>

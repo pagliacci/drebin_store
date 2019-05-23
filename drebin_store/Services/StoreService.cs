@@ -124,5 +124,26 @@ namespace drebin_store.Services
 
             return _context.Products.Update(existingProduct).Entity;
         }
+
+        public Product CreateProduct(Product product)
+        {
+            // TODO: add validaton here
+            var createdProduct = _context.Products.Add(product).Entity;
+            _context.SaveChanges();
+
+            return createdProduct;
+        }
+
+        public async Task DeleteProduct(int productId)
+        {
+            // TODO: check user permissions
+            var existingProduct = await _context.Products.SingleOrDefaultAsync(p => p.Id == productId);
+
+            if (existingProduct == null)
+                return;
+
+            _context.Products.Remove(existingProduct);
+            _context.SaveChanges();
+        }
     }
 }

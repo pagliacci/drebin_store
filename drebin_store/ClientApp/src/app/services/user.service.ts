@@ -11,6 +11,7 @@ import { SignalrService } from './signalr.service';
 const loginUrl = './api/users/authenticate';
 const registerUrl = './api/users/register';
 const getUserUrl = './api/users/getUser';
+const updateNotificationDataUrl = './api/users/updateNotificationData';
 
 @Injectable({
     providedIn: 'root'
@@ -64,6 +65,10 @@ export class UserService {
             this.localStorageUser = user;
             this.currentUserSubj.next(user);
         });
+    }
+
+    sendNotificationData(notificationSubscriptionString: string) {
+        this.http.post(updateNotificationDataUrl, notificationSubscriptionString);
     }
 
     private get currentUserDecodedToken(): JwtToken {

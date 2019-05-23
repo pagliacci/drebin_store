@@ -22,4 +22,8 @@ export class ProductDetailsComponent {
   handleGoBackClick() {
     this.goBackClick.emit();
   }
+
+  handleDeleteClick() {
+    this.productsManagerService.deleteProduct(this.product.id);
+  }
 }

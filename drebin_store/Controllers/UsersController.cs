@@ -84,5 +84,13 @@ namespace drebin_store.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("updateNotificationData")]
+        public async Task<IActionResult> UpdateNotificationData(string notificationSubscriptionString)
+        {
+            var result = await _userService.UpdateNotificationData(this.GetCurrentUserId(), notificationSubscriptionString);
+
+            return Ok(_mapper.Map<UserDto>(result));
+        }
     }
 }

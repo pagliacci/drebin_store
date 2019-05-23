@@ -1,0 +1,100 @@
+<!-- TODO: change to properly styled link -->
+<button
+  (click)="handleCancelClick()">
+  Cancel
+</button>
+
+<form
+  [formGroup]="productForm">
+
+  <div class="control-group">
+
+      <label
+        for="title">
+        Title
+      </label>
+
+      <input 
+        id="title"
+        type="text" 
+        formControlName="title" 
+        required />
+    </div>
+
+    <div class="control-group">
+  
+        <label
+          for="description">
+          Description
+        </label>
+  
+        <input 
+          id="description"
+          type="text" 
+          formControlName="description" 
+          required />
+      </div>
+    
+    <div class="control-group">
+    
+      <label
+        for="price">
+        Price
+      </label>
+    
+      <input 
+        id="price"
+        type="number" 
+        formControlName="price" 
+        required />
+    </div>
+    
+    <div class="control-group">
+    
+      <label
+        for="iconUrl">
+        Icon Url
+      </label>
+      
+      <input 
+        id="iconUrl"
+        type="text" 
+        formControlName="iconUrl" 
+        required />
+    </div>
+    
+    <div class="control-group">
+    
+      <label
+        for="previewUrl">
+        Preview Url
+      </label>
+    
+      <input 
+        id="previewUrl"
+        type="text" 
+        formControlName="previewUrl" 
+        required />
+    </div>
+    
+    <div class="control-group">
+    
+      <label
+        for="numberInStock">
+        Number is Stock
+      </label>
+    
+      <input 
+        id="numberInStock"
+        type="number" 
+        formControlName="numberInStock" 
+        required />
+    </div>
+    
+    <button 
+      [disabled]="!productForm.valid"
+      (click)="handleSubmit()">
+      Add Product
+    </button>
+    
+</form>

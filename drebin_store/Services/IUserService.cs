@@ -15,5 +15,7 @@ namespace drebin_store.Services
         Task<User> GetById(int id);
 
         Task<List<User>> GetAll();
+
+        Task<User> UpdateNotificationData(int userId, string notificationSubscriptionString);
     }
 }

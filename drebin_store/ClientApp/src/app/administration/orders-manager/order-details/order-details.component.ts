@@ -23,12 +23,14 @@ export class OrderDetailsComponent {
   ) { }
 
   handleComplete() {
-    this.order.orderState = OrderState.completed;
+    // this.order.orderState = OrderState.completed;
+    // TODO: update UI model after successfull response and check other places !
     this.ordersManagerService.completeOrder(this.order).subscribe(o => this.order = o);
   }
 
   handleCancel() {
-    this.order.orderState = OrderState.cancelled;
+    // this.order.orderState = OrderState.cancelled;
+    // TODO: update UI model after successfull response and check other places !
     this.ordersManagerService.completeOrder(this.order).subscribe(o => this.order = o);
   }
 

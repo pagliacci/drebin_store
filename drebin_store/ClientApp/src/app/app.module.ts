@@ -17,6 +17,8 @@ import { CodecModule } from './codec/codec.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AdministrationModule } from './administration/administration.module';
+// import { AngularFireModule } from '@angular/fire';
+// import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,10 @@ import { AdministrationModule } from './administration/administration.module';
     CodecModule,
     AdministrationModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('/firebase-messaging-sw.js', { enabled: environment.production }),
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireMessagingModule
   ],
   providers: [
     UserService,

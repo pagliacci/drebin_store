@@ -6,6 +6,7 @@ import { SignalrService } from 'src/app/services/signalr.service';
 
 const getUsersUrl = '/api/administration/getUsers';
 const updateUserUrl = '/api/administration/updateUser';
+const sendNotificationUrl = '/api/administration/sendNotification';
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +61,9 @@ export class UsersManagerService {
 
   updateUser(user: User): Observable<User> {
     return this.http.post<User>(updateUserUrl, user);
+  }
+
+  sendNotification(userId: number) {
+    return this.http.post(sendNotificationUrl, userId);
   }
 }

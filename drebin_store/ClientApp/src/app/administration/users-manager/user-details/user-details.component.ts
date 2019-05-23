@@ -42,6 +42,10 @@ export class UserDetailsComponent implements OnChanges {
     this.goBackClick.emit();
   }
 
+  sendNotification() {
+    // this.usersManagerService.sendNotification();
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     const questStages = [];
     let isStageAvailable = false;

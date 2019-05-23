@@ -13,6 +13,7 @@ export class ProductsManagerComponent implements OnInit, OnDestroy {
 
   products: Product[];
   selectedProduct: Product;
+  isProductAdderShown = false;
 
   serviceSubscription: Subscription;
 
@@ -24,6 +25,18 @@ export class ProductsManagerComponent implements OnInit, OnDestroy {
 
   handleDetailsBackClick() {
     this.selectedProduct = null;
+  }
+
+  handleAddProductButtonClick() {
+    this.isProductAdderShown = true;
+  }
+
+  handleProductAdded() {
+    this.isProductAdderShown = false;
+  }
+
+  handleProductAddCancel() {
+    this.isProductAdderShown = false;
   }
 
   ngOnInit() {

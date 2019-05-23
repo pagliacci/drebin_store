@@ -22,6 +22,6 @@ function getContact(name: string, frequency: string): CodecContact {
     return {
         name: name,
         frequency: frequency,
-        viewUrl: `./assets/codec/${name.toLowerCase()}.png`
+        viewUrl: `./assets/codec/${name.toLowerCase()}.jpg`
     };
 }

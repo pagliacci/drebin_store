@@ -11,5 +11,7 @@ namespace drebin_store.Services
         Task<IEnumerable<Order>> GetOrders(int? userId = null, OrderStateEnum? orderState = null);
         Task<Order> CompleteOrder(int orderId, OrderStateEnum orderState);
         Task<Product> UpdateProduct(Product product);
+        Product CreateProduct(Product product);
+        Task DeleteProduct(int productId);
     }
 }

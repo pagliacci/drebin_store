@@ -79,6 +79,19 @@ namespace drebin_store.Services
             return await _databaseContext.Users.ToListAsync();
         }
 
+        public async Task<User> UpdateNotificationData(int userId, string notificationSubscriptionString) {
+            var existingUser = await _databaseContext.Users.SingleOrDefaultAsync(u => u.Id == userId);
+            if (existingUser == null)
+                throw new AppException("Not existing user");
+
+            //existingUser.NotificationSubscriptionString = notificationSubscriptionString;
+
+            var updatedUser = _databaseContext.Users.Update(existingUser).Entity;
+            _databaseContext.SaveChanges();
+
+            return updatedUser;
+        }
+
         private (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHashes(string password)
         {
             if (password == null) throw new ArgumentNullException("password");

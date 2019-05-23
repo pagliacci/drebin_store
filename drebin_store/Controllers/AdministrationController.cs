@@ -89,5 +89,29 @@ namespace drebin_store.Controllers
 
             return responseDto;
         }
+
+        [HttpPost("[action]")]
+        public async Task<ProductDto> CreateProduct(ProductDto productDto)
+        {
+            var product = _storeService.CreateProduct(_mapper.Map<Product>(productDto));
+
+            var responseDto = _mapper.Map<ProductDto>(product);
+
+            await _hubContext.Clients.All.UpdateProduct(responseDto);
+
+            return responseDto;
+        }
+
+        [HttpPost("[action]")]
+        public async Task DeleteProduct([FromBody]int productId)
+        {
+            await _storeService.DeleteProduct(productId);
+        }
+
+        [HttpPost("[action]")]
+        public async Task SendNotification(int UserId)
+        {
+
+        }
     }
 }

@@ -6,7 +6,9 @@ import { map } from 'rxjs/operators';
 import { SignalrService } from 'src/app/services/signalr.service';
 
 const getProductsUrl = '/api/store/products';
-const updaProductUrl = '/api/administration/updateProduct';
+const updateProductUrl = '/api/administration/updateProduct';
+const createProductUrl = '/api/administration/createProduct';
+const deleteProductUrl = '/api/administration/deleteProduct';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +54,16 @@ export class ProductsManagerService {
   }
 
   updateProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(updaProductUrl, product)
+    return this.http.post<Product>(updateProductUrl, product)
       .pipe(map(p => Object.assign(new Product(), p)));
+  }
+
+  addProduct(product: Product): Promise<Product> {
+    return this.http.post<Product>(createProductUrl, product)
+      .pipe(map(p => Object.assign(new Product(), p))).toPromise();
+  }
+
+  deleteProduct(productId: number): Promise<Object> {
+    return this.http.post(deleteProductUrl, productId).toPromise();
   }
 }

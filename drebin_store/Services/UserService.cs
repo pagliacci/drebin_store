@@ -69,9 +69,9 @@ namespace drebin_store.Services
             return updatedUser;
         }
 
-        public Task<User> GetById(int id)
+        public User GetById(int id)
         {
-            return _databaseContext.Users.FindAsync(id);
+            return _databaseContext.Users.Single(u => u.Id == id);
         }
 
         public async Task<List<User>> GetAll()
@@ -84,7 +84,7 @@ namespace drebin_store.Services
             if (existingUser == null)
                 throw new AppException("Not existing user");
 
-            //existingUser.NotificationSubscriptionString = notificationSubscriptionString;
+            existingUser.NotificationSubscriptionString = notificationSubscriptionString;
 
             var updatedUser = _databaseContext.Users.Update(existingUser).Entity;
             _databaseContext.SaveChanges();

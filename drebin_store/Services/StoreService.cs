@@ -115,6 +115,9 @@ namespace drebin_store.Services
 
         public async Task<Product> UpdateProduct(Product product)
         {
+            if (!IsProductValid(product))
+                throw new ApplicationException("Product is invalid.");
+
             var existingProduct = await _context.Products.SingleOrDefaultAsync(p => p.Id == product.Id);
 
             if (existingProduct == null)
@@ -127,7 +130,9 @@ namespace drebin_store.Services
 
         public Product CreateProduct(Product product)
         {
-            // TODO: add validaton here
+            if (!IsProductValid(product))
+                throw new ApplicationException("Product is invalid.");
+
             var createdProduct = _context.Products.Add(product).Entity;
             _context.SaveChanges();
 
@@ -144,6 +149,11 @@ namespace drebin_store.Services
 
             _context.Products.Remove(existingProduct);
             _context.SaveChanges();
+        }
+
+        private bool IsProductValid(Product product)
+        {
+            return product.Price > 0 && product.NumberInStock >= 0;
         }
     }
 }

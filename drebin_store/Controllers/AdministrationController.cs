@@ -22,11 +22,13 @@ namespace drebin_store.Controllers
         private readonly IUserService _userService;
         private readonly IHubContext<SignalRHub, ITypedHubClient> _hubContext;
         private readonly IMapper _mapper;
+        private readonly IWebPushService _webPushService;
 
-        public AdministrationController(IStoreService storeService, IUserService userService, IHubContext<SignalRHub, ITypedHubClient> hubContext, IMapper mapper)
+        public AdministrationController(IStoreService storeService, IUserService userService, IWebPushService webPushService, IHubContext<SignalRHub, ITypedHubClient> hubContext, IMapper mapper)
         {
             _storeService = storeService;
             _userService = userService;
+            _webPushService = webPushService;
             _hubContext = hubContext;
             _mapper = mapper;
         }
@@ -40,7 +42,7 @@ namespace drebin_store.Controllers
         [HttpGet("[action]")]
         public async Task<UserDto> GetUser(int userId)
         {
-            return _mapper.Map<UserDto>(await _userService.GetById(userId));
+            return _mapper.Map<UserDto>(_userService.GetById(userId));
         }
 
         // method to add drebin points and update stage of quest
@@ -109,9 +111,10 @@ namespace drebin_store.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task SendNotification(int UserId)
+        public async Task SendNotification([FromBody]int userId)
         {
-
+            var user = _userService.GetById(userId);
+            _webPushService.SendNotification(user); // TODO: add check whether notification was sent or not?
         }
     }
 }

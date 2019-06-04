@@ -64,6 +64,6 @@ export class UsersManagerService {
   }
 
   sendNotification(userId: number) {
-    return this.http.post(sendNotificationUrl, userId);
+    return this.http.post(sendNotificationUrl, userId).toPromise();
   }
 }

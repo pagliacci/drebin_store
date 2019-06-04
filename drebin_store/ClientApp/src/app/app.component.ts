@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     Notification.requestPermission();
 
     this.swPush.requestSubscription({ serverPublicKey: serverPublicKey }).then(response => {
-      this.userService.sendNotificationData(JSON.stringify(response));
+      this.userService.sendNotificationData(response);
       window['notificationsSubscription'] = response;
     }).catch(e => console.log(e));
 

@@ -18,10 +18,9 @@ export class OrdersManagerService {
   constructor(private http: HttpClient, private signalrService: SignalrService) {
     this.orders = Observable.create((observer) => {
       let orders: Order[];
-      const subscription = this.getOrders().subscribe((data) => {
+      this.getOrders().then((data) => {
         orders = data;
         observer.next(orders);
-        subscription.unsubscribe();
       });
 
       signalrService.order.subscribe((order) => {
@@ -48,7 +47,7 @@ export class OrdersManagerService {
     });
   }
 
-  private getOrders(userId?: number, orderState?: OrderState): Observable<Order[]> {
+  private getOrders(userId?: number, orderState?: OrderState): Promise<Order[]> {
     let params = new HttpParams();
     if (userId != null) {
       params = params.set('userId', userId.toString());
@@ -58,7 +57,10 @@ export class OrdersManagerService {
     }
     return this.http.get<Order[]>(getOrdersUrl, {
       params: params
-    });
+    }).toPromise().then(result => result.map(r => {
+      r.completionTimeStamp = r.completionTimeStamp ? new Date(r.completionTimeStamp) : r.completionTimeStamp;
+      return r;
+    }));
   }
 
   completeOrder(order: Order): Observable<Order> {

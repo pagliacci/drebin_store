@@ -1,27 +1,56 @@
-﻿using WebPush;
+﻿using drebin_store.Services.Models;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using WebPush;
 
 namespace drebin_store.Services
 {
-    public class WebPushService
+    public class WebPushService : IWebPushService
     {
+        private readonly IUserService _userService;
         private readonly WebPushClient _webPushClient;
 
-        WebPushService(WebPushClient webPushClient)
+        public WebPushService(IUserService userService, WebPushClient webPushClient)
         {
+            _userService = userService;
             _webPushClient = webPushClient;
         }
 
-//  {
-//    "endpoint": "https://fcm.googleapis.com/fcm/send/dbDP-ZHtEW4:APA91bFfyOgjPCfY5WwV31iAhunrfscAZF9v_CxsB9XhgrhOe5Kpi45pCrI-wnfaIB7laCpj8BYd07Er4VoLzLrfBvGJ8pOJVwZxFZpXmXCL-JIXnLhYP2bkz4pUIXHlfEu3XZpkm0tX",
-//    "expirationTime": null,
-//    "keys": {
-//        "p256dh": "BN_vv5ayTqq0Xsj1ItJ1RiQzMveLX2cLJZsfa3elyk02YRXdPxf4bkaHONZ1OaNXBHoMsLY55qbvbDzYhG0ivW0",
-//        "auth": "P6ZvGv_5Ui5ssjN-qK7icw"
-//    }
-//  }
+        public void SendNotification(User user) {
+            //var user = await _userService.GetById(userId);
+            if (user.NotificationSubscriptionString != null)
+            {
+                var notificationData = JsonConvert.DeserializeObject<NotificationSubscription>(user.NotificationSubscriptionString);
+                var pushSubscription = new PushSubscription(notificationData.Endpoint, notificationData.Keys.P256DH, notificationData.Keys.Auth);
 
-    void SendNotification() {
-            //_webPushClient.SendNotification
+                var payload = new Notification
+                {
+                    Title = "MGS зовёт!",
+                    Actions = new List<Action>
+                    {
+                        new Action
+                        {
+                            ActionType = "qwe",
+                            Title = "asd"
+                        }
+                    },
+                    Body = "Нет времени объяснять, вот тебе картинка goatse из интернетов!",
+                    Dir = "auto",
+                    Icon = "https://memepedia.ru/wp-content/uploads/2018/10/goatse-donuts.png",
+                    Badge = "https://memepedia.ru/wp-content/uploads/2018/10/goatse-donuts.png",
+                    Renotify = true,
+                    Lang = "en",
+                    RequireInteraction = true,
+                    Vibrate = new[] { 200, 100, 200 }
+                };
+
+                var subject = "mailto:example@example.com";
+                var publicKey = "BFA1LB2pb5WGs8zN5wCdEubKsqvqpCqwGQ9tEjBUBouZ2bzO-4eBOtmt0-a3Oz-BAZqwQO1WMaroK_JdwWiwiMQ";
+                var privateKey = "TxI1I9J-pCSiOB5FzKt71J1mZByoUla-Ybnrj3loMaM";
+                var vapidDetails = new VapidDetails(subject, publicKey, privateKey);
+
+                _webPushClient.SendNotification(pushSubscription, JsonConvert.SerializeObject(new { notification = payload }), vapidDetails);
+            }
         }
     }
 }

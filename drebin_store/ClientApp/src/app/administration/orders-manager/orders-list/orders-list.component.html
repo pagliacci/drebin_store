@@ -1,3 +1,35 @@
+<div
+  class="filtering-controls">
+
+  <div
+    class="filter-group">
+
+    <label
+      for="filter-input">
+      Filter orders by user name:
+    </label>
+
+    <input 
+      id="filter-input"
+      (input)="handleFilterInput($event.target.value)">
+  </div>
+
+  <div
+    class="filter-group">
+
+    <label
+      for="include-completed-orders-checkbox">
+      Include completed orders:
+    </label>
+
+    <input
+      id="include-completed-orders-checkbox"
+      type="checkbox"
+      [checked]="includeCompletedOrders"
+      (change)="handleCompletedOrdersCheckbox($event.target.checked)">
+  </div>
+</div>
+
 <table
   class="orders-list">
   <thead
@@ -23,7 +55,7 @@
   <tbody
     class="body">
     <tr
-      *ngFor="let order of orders"
+      *ngFor="let order of ordersToDisplay"
       (click)="handleClick(order)">
       <td>
         {{ order.user.username }}

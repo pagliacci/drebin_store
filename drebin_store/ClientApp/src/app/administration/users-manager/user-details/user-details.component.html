@@ -44,3 +44,14 @@
     </button>
   </div>
 </div>
+<div
+  class="notifications-manager">
+  <h4>
+    Send notification (TEST)
+  </h4>
+  <button
+    [disabled]="!user.hasNotificationSubscription"
+    (click)="sendNotification()">
+    Send notification
+  </button>
+</div>

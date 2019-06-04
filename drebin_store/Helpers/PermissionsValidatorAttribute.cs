@@ -7,5 +7,6 @@ namespace drebin_store.Helpers
 {
     public class PermissionsValidatorAttribute : Attribute
     {
+
     }
 }

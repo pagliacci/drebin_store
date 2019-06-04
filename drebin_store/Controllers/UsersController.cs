@@ -6,6 +6,7 @@ using drebin_store.WebModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -78,7 +79,7 @@ namespace drebin_store.Controllers
         [HttpGet("getUser")]
         public async Task<IActionResult> GetCurrentUser()
         {
-            var user = await _userService.GetById(this.GetCurrentUserId());
+            var user = _userService.GetById(this.GetCurrentUserId());
 
             var result = _mapper.Map<UserDto>(user);
 
@@ -86,8 +87,9 @@ namespace drebin_store.Controllers
         }
 
         [HttpPost("updateNotificationData")]
-        public async Task<IActionResult> UpdateNotificationData(string notificationSubscriptionString)
+        public async Task<IActionResult> UpdateNotificationData([FromBody]NotificationSubscription notificationSubscription)
         {
+            var notificationSubscriptionString = JsonConvert.SerializeObject(notificationSubscription);
             var result = await _userService.UpdateNotificationData(this.GetCurrentUserId(), notificationSubscriptionString);
 
             return Ok(_mapper.Map<UserDto>(result));

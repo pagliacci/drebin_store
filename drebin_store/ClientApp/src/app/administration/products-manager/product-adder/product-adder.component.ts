@@ -10,6 +10,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ProductAdderComponent {
 
+  errorMessage: String;
+
   @Output()
   productAdded: EventEmitter<void> = new EventEmitter();
 
@@ -19,10 +21,10 @@ export class ProductAdderComponent {
   productForm = this.formBuilder.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
-    price: ['', Validators.required, Validators.min(1)],
+    price: ['', Validators.compose([Validators.required, Validators.min(1)])],
     iconUrl: [''],
     previewUrl: [''],
-    numberInStock: ['']
+    numberInStock: ['', Validators.compose([Validators.required, Validators.min(0)])]
   });
 
   constructor(
@@ -45,6 +47,9 @@ export class ProductAdderComponent {
     };
     this.productsManagerService.addProduct(product).then(result => {
       this.productAdded.emit();
+      this.errorMessage = null;
+    }).catch(error => {
+      this.errorMessage = 'Error occurred during creation';
     });
   }
 

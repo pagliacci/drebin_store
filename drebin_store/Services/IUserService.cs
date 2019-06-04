@@ -12,7 +12,7 @@ namespace drebin_store.Services
 
         Task<User> Update(User user);
 
-        Task<User> GetById(int id);
+        User GetById(int id);
 
         Task<List<User>> GetAll();
 

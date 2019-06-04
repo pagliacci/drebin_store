@@ -67,8 +67,8 @@ export class UserService {
         });
     }
 
-    sendNotificationData(notificationSubscriptionString: string) {
-        this.http.post(updateNotificationDataUrl, notificationSubscriptionString);
+    sendNotificationData(notificationSubscription: Object) {
+        this.http.post(updateNotificationDataUrl, notificationSubscription).toPromise();
     }
 
     private get currentUserDecodedToken(): JwtToken {

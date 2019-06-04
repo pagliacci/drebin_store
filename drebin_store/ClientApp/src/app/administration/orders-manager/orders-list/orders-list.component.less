@@ -1,6 +1,18 @@
 @import '../../../../styles-vars.less';
 
 :host {
+
+    display: flex;
+    flex-direction: column;
+
+    .filtering-controls {
+        margin: 20px;
+
+        .filter-group {
+            margin-top: 10px;
+        }
+    }
+
     .orders-list {
         border: @border;
         border-collapse: collapse;

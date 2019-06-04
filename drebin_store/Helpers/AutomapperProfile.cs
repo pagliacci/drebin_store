@@ -8,7 +8,10 @@ namespace drebin_store.Helpers
     {
         public AutomapperProfile()
         {
-            CreateMap<User, UserDto>().ReverseMap();
+            //CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserDto>()
+                .ForMember(x => x.HasNotificationSubscription, x => x.MapFrom(y => !string.IsNullOrEmpty(y.NotificationSubscriptionString)))
+                .ReverseMap(); ;
             CreateMap<Product, ProductDto>();
             CreateMap<Order, OrderDto>();
             CreateMap<MainQuestStageEnum, MainQuestStageEnumDto>().ReverseMap();

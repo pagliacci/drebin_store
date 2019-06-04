@@ -16,6 +16,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.HttpOverrides;
 using System.Net;
 using drebin_store.SignalRHubs;
+using WebPush;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace drebin_store
@@ -82,6 +84,8 @@ namespace drebin_store
             // Services setup
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<IWebPushService, WebPushService>();
+            services.AddScoped<WebPushClient>();
 
             services.AddSignalR()
                 .AddJsonProtocol(options => {
@@ -99,10 +103,17 @@ namespace drebin_store
             {
                 options.KnownProxies.Add(IPAddress.Parse("188.166.102.6")); // TODO: read from config
             });
+
+            // Newtonsoft serialization settings
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -137,6 +148,17 @@ namespace drebin_store
                     template: "{controller}/{action=Index}/{id?}");
             });
 
+            // TODO: try to migrate on startup later
+            //// Create a new scope
+            //using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    // Get the DbContext instance
+            //    var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+
+            //    //Do the migration asynchronously
+            //    await dbContext.Database.MigrateAsync();
+            //}
+
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -147,7 +169,7 @@ namespace drebin_store
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
-                    //spa.UseAngularCliServer(npmScript: "start-prod");
+                    //spa.UseAngularCliServer(npmScript: "build-full");
                 }
             });
         }

@@ -17,21 +17,31 @@ export class OrderDetailsComponent {
   @Output()
   goBackClick: EventEmitter<void> = new EventEmitter();
 
+  get isCompleteButtonDisabled() {
+    return this.order.orderState !== OrderState.inProgress;
+  }
+
+  get isCancelButtonDisabled() {
+    return this.order.orderState !== OrderState.inProgress;
+  }
+
   constructor(
     private ordersManagerService: OrdersManagerService,
     private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   handleComplete() {
-    // this.order.orderState = OrderState.completed;
-    // TODO: update UI model after successfull response and check other places !
-    this.ordersManagerService.completeOrder(this.order).subscribe(o => this.order = o);
+    // Looks like ugly kostyl', but it's ok for now
+    const order = Object.assign(new Order(), this.order);
+    order.orderState = OrderState.completed;
+    this.ordersManagerService.completeOrder(order).subscribe(o => this.order = o);
   }
 
   handleCancel() {
-    // this.order.orderState = OrderState.cancelled;
-    // TODO: update UI model after successfull response and check other places !
-    this.ordersManagerService.completeOrder(this.order).subscribe(o => this.order = o);
+    // Looks like ugly kostyl', but it's ok for now
+    const order = Object.assign(new Order(), this.order);
+    order.orderState = OrderState.cancelled;
+    this.ordersManagerService.completeOrder(order).subscribe(o => this.order = o);
   }
 
   handleGoBackClick() {

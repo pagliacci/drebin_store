@@ -1,0 +1,8 @@
+Генерирует миграцию:
+dotnet ef migrations script --idempotent
+
+Собирает:
+dotnet publish -c Release
+
+Посмотреть лог:
+journalctl -u kestrel-drebin_store.service

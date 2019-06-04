@@ -43,7 +43,7 @@ export class UserDetailsComponent implements OnChanges {
   }
 
   sendNotification() {
-    // this.usersManagerService.sendNotification();
+    this.usersManagerService.sendNotification(this.user.id);
   }
 
   ngOnChanges(changes: SimpleChanges) {

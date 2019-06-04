@@ -7,10 +7,12 @@
   Order details
 </h4>
 <button
+  [disabled]="isCompleteButtonDisabled"
   (click)="handleComplete()">
   Complete Order
 </button>
 <button
+  [disabled]="isCancelButtonDisabled"
   (click)="handleCancel()">
   Cancel Order
 </button>

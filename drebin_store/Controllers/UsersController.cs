@@ -2,9 +2,11 @@
 using drebin_store.Helpers;
 using drebin_store.Services;
 using drebin_store.Services.Models;
+using drebin_store.SignalRHubs;
 using drebin_store.WebModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
@@ -22,12 +24,14 @@ namespace drebin_store.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IHubContext<SignalRHub, ITypedHubClient> _hubContext;
         //private readonly AppSettings _appSettings;
 
-        public UsersController(IUserService userService, IMapper mapper) //, AppSettings appSettings)
+        public UsersController(IUserService userService, IMapper mapper, IHubContext<SignalRHub, ITypedHubClient> hubContext) //, AppSettings appSettings)
         {
             _userService = userService;
             _mapper = mapper;
+            _hubContext = hubContext;
             //_appSettings = appSettings;
         }
 
@@ -93,6 +97,19 @@ namespace drebin_store.Controllers
             var result = await _userService.UpdateNotificationData(this.GetCurrentUserId(), notificationSubscriptionString);
 
             return Ok(_mapper.Map<UserDto>(result));
+        }
+
+        [HttpPost("completeBriefing")]
+        public async Task<IActionResult> CompleteBriefing([FromBody]int userId)
+        {
+            var user = _userService.GetById(userId);
+            user.BriefingPassed = true;
+            var updatedUser = await _userService.Update(user);
+            var result = _mapper.Map<UserDto>(updatedUser);
+
+            await _hubContext.Clients.All.UpdateUser(result);
+
+            return Ok(result);
         }
     }
 }

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
-    submitted = false;
+    shouldShowValidation = false;
     error: string;
 
     constructor(
@@ -22,13 +22,15 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            username: [''], // Validators.required],
-            password: [''], // Validators.required, Validators.minLength(6)]
+            username: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+            password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
         });
+
+        this.registerForm.valueChanges.subscribe(() => this.shouldShowValidation = false);
     }
 
     onSubmit() {
-        this.submitted = true;
+        this.shouldShowValidation = true;
 
         if (this.registerForm.invalid) {
             return;

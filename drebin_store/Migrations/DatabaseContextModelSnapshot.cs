@@ -82,6 +82,8 @@ namespace drebin_store.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("BriefingPassed");
+
                     b.Property<bool>("CanManageOrders");
 
                     b.Property<bool>("CanManageProducts");

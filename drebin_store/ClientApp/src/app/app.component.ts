@@ -3,8 +3,6 @@ import { UserService } from './services/user.service';
 import { User } from './models/user';
 import { SwPush } from '@angular/service-worker';
 
-const serverPublicKey = 'BFA1LB2pb5WGs8zN5wCdEubKsqvqpCqwGQ9tEjBUBouZ2bzO-4eBOtmt0-a3Oz-BAZqwQO1WMaroK_JdwWiwiMQ';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,12 +23,9 @@ export class AppComponent implements OnInit {
     });
     this.userService.updateUserData();
 
-    Notification.requestPermission();
-
-    this.swPush.requestSubscription({ serverPublicKey: serverPublicKey }).then(response => {
-      this.userService.sendNotificationData(response);
-      window['notificationsSubscription'] = response;
-    }).catch(e => console.log(e));
+    if (this.isLoggedIn) {
+      this.userService.updateNotificationInfo();
+    }
 
     // this.swPush.messages.subscribe(message => {
     //   debugger;

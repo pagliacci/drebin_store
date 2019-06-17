@@ -1,0 +1,21 @@
+<app-codec-header
+  *ngIf="currentPage.codecContact"
+  [contact]="currentPage.codecContact"
+  class="codec-header">
+</app-codec-header>
+
+<div
+  class="scrollable-container">
+
+  <div
+    *ngFor="let content of currentPage.content"
+    [innerHtml]="getContent(content)"
+    class="briefing-section">
+  </div>
+
+  <a
+    class="next-button"
+    (click)="onNextButtonClick()">
+    {{ currentPage.buttonText }}
+  </a>
+</div>

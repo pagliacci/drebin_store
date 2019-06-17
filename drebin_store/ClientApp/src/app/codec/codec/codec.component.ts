@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CodecContact } from '../models/codec-contact';
 import { CodecService } from '../codec.service';
@@ -16,7 +16,6 @@ export class CodecComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router,
         private codecService: CodecService,
         private userService: UserService
     ) { }

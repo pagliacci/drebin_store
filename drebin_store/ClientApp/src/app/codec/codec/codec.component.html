@@ -1,24 +1,12 @@
-<div 
-    class="codec-header">
-    <div
-        class="codec-frequency">
-        {{ contact.frequency }}
-    </div>
-</div>
-<div>
-    <div
-        class="codec-bio">
-        {{ contact.name }}
-    </div>
-    <img
-        [src]="contact.viewUrl"
-        class="codec-view" />
-</div>
+<app-codec-header
+    [contact]="contact">
+</app-codec-header>
+
 <div
-    class="codec-text">
-    {{ codecText }}
+    class="codec-text-container">
+
+    <div
+        class="codec-text">
+        {{ codecText }}
+    </div>
 </div>
-<button
-    (click)="nextReplica()">
-    Next Replica
-</button>

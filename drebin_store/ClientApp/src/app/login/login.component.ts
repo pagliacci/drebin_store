@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
+                    this.userService.updateNotificationInfo();
                 },
                 error => {
                     this.isLoading = false;

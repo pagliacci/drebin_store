@@ -1,0 +1,44 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px 20px 20px;
+
+    .codec-header {
+        flex: 1 0;
+    }
+
+    .scrollable-container {
+        flex: 10 0;
+        overflow: auto;
+    }
+
+    .briefing-section {
+        text-align: justify;
+        margin: 15px 0;
+
+        & ::ng-deep img {
+            max-width: 100%;
+            display: block;
+            margin: auto;
+        }
+    }
+
+    .next-button {
+        display: block;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    // page-specific styles
+    .briefing-section ::ng-deep .image-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        img {
+            max-width: 30%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+}

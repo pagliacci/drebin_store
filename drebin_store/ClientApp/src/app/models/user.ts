@@ -11,6 +11,8 @@ export class User {
     canManageOrders: boolean;
     canManageProducts: boolean;
     hasNotificationSubscription: boolean;
+    briefingPassed: boolean;
+
     get isAdmin() {
         return this.canManageUsers || this.canManageOrders || this.canManageProducts;
     }
@@ -27,6 +29,7 @@ export class User {
             this.canManageOrders = user.canManageOrders;
             this.canManageProducts = user.canManageProducts;
             this.hasNotificationSubscription = user.hasNotificationSubscription;
+            this.briefingPassed = user.briefingPassed;
         }
     }
 }

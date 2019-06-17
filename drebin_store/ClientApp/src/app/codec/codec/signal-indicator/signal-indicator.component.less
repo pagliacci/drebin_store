@@ -1,0 +1,46 @@
+:host {
+    position: relative;
+
+    padding: 0 10px;
+
+    .indicator-bar {
+        height: calc((100% - 27px)/9);
+        margin-bottom: 3px;
+
+        background-color: #2B463B;
+
+        &.highlighted {
+            background-color: #DBFFFF;
+            box-shadow: 0px 0px 2px 1px #DBFFFF;
+        }
+    }
+
+    .frequency, .frequency-background {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 5px;
+        font-family: segment;
+    }
+    
+    @media (orientation: landscape) {
+        .frequency, .frequency-background {
+            font-size: calc((45vw - 4.5rem) / 7);
+        }
+    }
+
+    @media (orientation: portrait) {
+        .frequency, .frequency-background {
+            font-size: calc((50vw - 4.5rem) / 7);
+        }
+    }
+
+    .frequency-background {
+        color: #2B463B;
+    }
+
+    .frequency {
+        z-index: 1;
+        color: #DBFFFF;
+    }
+}

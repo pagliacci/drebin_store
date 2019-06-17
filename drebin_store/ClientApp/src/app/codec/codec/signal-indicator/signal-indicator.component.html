@@ -1,0 +1,15 @@
+<div
+    *ngFor="let bar of bars"
+    class="indicator-bar"
+    [class.highlighted]="bar.isHighlighted"
+    [style.width.%]="bar.width">
+</div>
+
+<div
+    class="frequency-background">
+    888.88
+</div>
+<div
+    class="frequency">
+    {{ frequency }}
+</div>

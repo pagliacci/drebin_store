@@ -1,4 +1,10 @@
-Генерирует миграцию:
+Добавляет миграцию:
+dotnet ef migrations add <name of migration>
+
+Применяет миграцию:
+dotnet ef database update
+
+Генерирует скрипт миграции:
 dotnet ef migrations script --idempotent
 
 Собирает:
@@ -6,3 +12,6 @@ dotnet publish -c Release
 
 Посмотреть лог:
 journalctl -u kestrel-drebin_store.service
+
+Перезапустить сервис:
+sudo systemctl restart kestrel-drebin_store.service

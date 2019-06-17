@@ -7,11 +7,15 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SignalrService } from './signalr.service';
+import { SwPush } from '@angular/service-worker';
 
 const loginUrl = './api/users/authenticate';
 const registerUrl = './api/users/register';
 const getUserUrl = './api/users/getUser';
 const updateNotificationDataUrl = './api/users/updateNotificationData';
+const completeBriefingUrl = './api/users/completeBriefing';
+
+const serverPublicKey = 'BFA1LB2pb5WGs8zN5wCdEubKsqvqpCqwGQ9tEjBUBouZ2bzO-4eBOtmt0-a3Oz-BAZqwQO1WMaroK_JdwWiwiMQ';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +27,7 @@ export class UserService {
         return this.currentUserSubj.getValue();
     }
 
-    constructor(private http: HttpClient, private router: Router, private signalrService: SignalrService) {
+    constructor(private http: HttpClient, private router: Router, private signalrService: SignalrService, private swPush: SwPush) {
         this.currentUserSubj = new BehaviorSubject(this.localStorageUser);
 
         signalrService.user.subscribe(user => {
@@ -69,6 +73,26 @@ export class UserService {
 
     sendNotificationData(notificationSubscription: Object) {
         this.http.post(updateNotificationDataUrl, notificationSubscription).toPromise();
+    }
+
+    updateNotificationInfo() {
+        Notification.requestPermission();
+
+        this.swPush.requestSubscription({ serverPublicKey: serverPublicKey }).then(response => {
+            this.sendNotificationData(response);
+        }).catch(e => console.log(e));
+    }
+
+    completeBriefing(): Promise<void> {
+        return this.http.post<User>(completeBriefingUrl, this.currentUser.id)
+            .toPromise()
+            .then(u => {
+                // TODO: remove code duplication
+                const user = Object.assign(new User(), u);
+                user.token = this.currentUser.token;
+                this.localStorageUser = user;
+                this.currentUserSubj.next(user);
+            });
     }
 
     private get currentUserDecodedToken(): JwtToken {

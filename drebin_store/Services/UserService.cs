@@ -24,7 +24,7 @@ namespace drebin_store.Services
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = await _databaseContext.Users.SingleOrDefaultAsync(u => u.Username == username.ToLower());
+            var user = await _databaseContext.Users.SingleOrDefaultAsync(u => u.Username.ToLower() == username.ToLower());
 
             if (user == null)
                 return null;
@@ -40,7 +40,7 @@ namespace drebin_store.Services
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
 
-            if (_databaseContext.Users.Any(u => u.Username == user.Username))
+            if (_databaseContext.Users.Any(u => u.Username.ToLower() == user.Username.ToLower()))
                 throw new AppException($"Username \"{user.Username}\" is already taken");
 
             var (passwordHash, passwordSalt) = CreatePasswordHashes(password);
@@ -60,7 +60,11 @@ namespace drebin_store.Services
             if (existingUser == null)
                 throw new AppException("Not existing user");
 
-            existingUser.DrebinPoints = user.DrebinPoints; // TODO: prevent admins from decreasing number of points?
+            if (user.MainQuestStage != existingUser.MainQuestStage)
+            {
+                existingUser.BriefingPassed = false;
+            }
+            existingUser.DrebinPoints = user.DrebinPoints;
             existingUser.MainQuestStage = user.MainQuestStage;
 
             var updatedUser = _databaseContext.Users.Update(existingUser).Entity;

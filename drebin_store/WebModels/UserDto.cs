@@ -1,4 +1,6 @@
-﻿namespace drebin_store.WebModels
+﻿using drebin_store.Services.Models;
+
+namespace drebin_store.WebModels
 {
     public class UserDto
     {
@@ -12,7 +14,9 @@
 
         public decimal DrebinPoints { get; set; }
 
-        public MainQuestStageEnumDto MainQuestStage { get; set; }
+        public MainQuestStageEnum MainQuestStage { get; set; }
+
+        public bool BriefingPassed { get; set; }
 
         public bool CanManageUsers { get; set; }
 

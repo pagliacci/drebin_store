@@ -2,8 +2,10 @@
 {
     public enum MainQuestStageEnum
     {
-        Stage1,
-        Stage2,
-        Stage3
+        Act1,
+        Act2,
+        Act3,
+        Act4,
+        Act5
     }
 }

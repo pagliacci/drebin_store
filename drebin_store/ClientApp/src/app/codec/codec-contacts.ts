@@ -7,6 +7,8 @@ export class CodecContacts {
     static raiden = getContact('Raiden', '141.80');
     static meryl = getContact('Meryl', '140.15');
     static colonel = getContact('Colonel', '140.85');
+    static naomi = getContact('Naomi', '140.85');
+    static meiLing = getContact('Mei Ling', 'TBA');
 
     static list = [
         CodecContacts.otacon,
@@ -14,7 +16,9 @@ export class CodecContacts {
         CodecContacts.drebin,
         CodecContacts.raiden,
         CodecContacts.meryl,
-        CodecContacts.colonel
+        CodecContacts.colonel,
+        // CodecContacts.naomi,
+        // CodecContacts.meiLing
     ];
 }
 

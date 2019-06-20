@@ -15,3 +15,16 @@ journalctl -u kestrel-drebin_store.service
 
 Перезапустить сервис:
 sudo systemctl restart kestrel-drebin_store.service
+
+PSQL магия:
+	Сменить пользователя на postgres:
+	sudo -i -u postgres 
+
+	Запустить psql:
+	psql
+
+	Подключиться к базе:
+	\c drebin_store
+
+	Выполнить sql скрипт:
+	\i /migrate.sql

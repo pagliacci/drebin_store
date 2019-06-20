@@ -32,7 +32,7 @@ export class BriefingComponent {
   }
 
   getContent(rawContent: string): string {
-    return rawContent.replace(usernamePlaceholder, this.userService.currentUser.username);
+    return rawContent.replace(new RegExp(usernamePlaceholder, 'g'), this.userService.currentUser.username);
   }
 
 }

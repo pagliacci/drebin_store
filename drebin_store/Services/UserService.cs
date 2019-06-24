@@ -13,10 +13,12 @@ namespace drebin_store.Services
     public class UserService : IUserService
     {
         private readonly DatabaseContext _databaseContext;
+        private readonly IWebPushService _webPushService;
 
-        public UserService(DatabaseContext context)
+        public UserService(DatabaseContext context, IWebPushService webPushService)
         {
             _databaseContext = context;
+            _webPushService = webPushService;
         }
 
         public async Task<User> Authenticate(string username, string password)
@@ -63,6 +65,11 @@ namespace drebin_store.Services
             if (user.MainQuestStage != existingUser.MainQuestStage)
             {
                 existingUser.BriefingPassed = false;
+                existingUser.NumberOfQuestInCurrentAct = 0;
+                _webPushService.SendNotification(user);
+            } else
+            {
+                existingUser.NumberOfQuestInCurrentAct = user.NumberOfQuestInCurrentAct;
             }
             existingUser.DrebinPoints = user.DrebinPoints;
             existingUser.MainQuestStage = user.MainQuestStage;

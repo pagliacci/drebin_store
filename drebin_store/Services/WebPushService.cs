@@ -7,17 +7,14 @@ namespace drebin_store.Services
 {
     public class WebPushService : IWebPushService
     {
-        private readonly IUserService _userService;
         private readonly WebPushClient _webPushClient;
 
-        public WebPushService(IUserService userService, WebPushClient webPushClient)
+        public WebPushService(WebPushClient webPushClient)
         {
-            _userService = userService;
             _webPushClient = webPushClient;
         }
 
         public void SendNotification(User user) {
-            //var user = await _userService.GetById(userId);
             if (user.NotificationSubscriptionString != null)
             {
                 var notificationData = JsonConvert.DeserializeObject<NotificationSubscription>(user.NotificationSubscriptionString);

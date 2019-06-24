@@ -7,6 +7,21 @@
 
     <div
         class="codec-text">
-        {{ codecText }}
+        {{ codecData.message }}
+    </div>
+
+    <div
+        class="codec-buttons">
+
+        <a
+            (click)="handleMainButtonClick()">
+            {{ codecData.reply }}
+        </a>
+
+        <a
+            *ngIf="codecData.altReply"
+            (click)="handleAltButtonClick()">
+            {{ codecData.altReply }}
+        </a>
     </div>
 </div>

@@ -13,3 +13,8 @@
 <img
     class="preview-picture"
     [src]="product.previewUrl">
+<button
+    [disabled]="orderButtonDisabled"
+    (click)="handleOrderClick()">
+    Order
+</button>

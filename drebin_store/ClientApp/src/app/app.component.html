@@ -21,11 +21,15 @@
       routerLinkActive="active">
       Drebin Store
     </a>
+    <a 
+      class="logout-link" 
+      (click)="logout()">
+      Logout
+    </a>
   </nav>
-  <a 
-    class="logout-link" 
-    (click)="logout()">
-    Logout
-  </a>
 </div>
+<div
+  *ngIf="!isLoggedIn"
+  id="vk_auth"></div>
+
 <router-outlet></router-outlet>

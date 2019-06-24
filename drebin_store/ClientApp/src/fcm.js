@@ -15,6 +15,5 @@ messaging.setBackgroundMessageHandler(function(payload) {
       icon: '/firebase-logo.png'
     };
   
-    return self.registration.showNotification(notificationTitle,
-      notificationOptions);
+    return self.registration.showNotification(notificationTitle, notificationOptions);
   });

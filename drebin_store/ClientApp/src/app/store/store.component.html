@@ -1,4 +1,16 @@
 <div
+    class="store-user-info">
+    <div
+        class="available-points">
+        Available DP: {{ availablePoints }}
+    </div>
+    <div
+        class="bottom-message">
+        Select a product to order.
+    </div>
+</div>
+
+<div
     class="products-section">
     <div
         class="products-list">
@@ -12,22 +24,7 @@
 
     <app-product-preview
         *ngIf="selectedProduct != null"
-        [product]="selectedProduct">
+        [product]="selectedProduct"
+        (orderClick)="handleOrderClick()">
     </app-product-preview>
-</div>
-
-<div
-    class="store-footer">
-    <div
-        class="available-points">
-        Available DP: {{ availablePoints }}
-    </div>
-    <div
-        class="bottom-message">
-        Select a product to order.
-    </div>
-    <button
-        (click)="handleOrderClick()">
-        Order
-    </button>
 </div>

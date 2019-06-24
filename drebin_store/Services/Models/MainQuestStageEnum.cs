@@ -6,6 +6,7 @@
         Act2,
         Act3,
         Act4,
-        Act5
+        Act5,
+        Epilogue
     }
 }

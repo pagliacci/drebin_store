@@ -1,6 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy, Output } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../models/product';
-import { EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-product-card',
@@ -11,11 +10,4 @@ import { EventEmitter } from '@angular/core';
 export class ProductCardComponent {
     @Input()
     product: Product;
-
-    @Output()
-    click: EventEmitter<void> = new EventEmitter();
-
-    onClick() {
-        this.click.emit(null);
-    }
 }

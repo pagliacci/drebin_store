@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { UserService } from './services/user.service';
 import { User } from './models/user';
 import { SwPush } from '@angular/service-worker';
@@ -8,7 +8,8 @@ import { SwPush } from '@angular/service-worker';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+
   isLoggedIn: boolean;
   user: User;
 
@@ -22,6 +23,10 @@ export class AppComponent implements OnInit {
       this.user = u;
     });
     this.userService.updateUserData();
+
+    // window['VK'].init({
+    //   'apiId': '7030474'
+    // });
 
     if (this.isLoggedIn) {
       this.userService.updateNotificationInfo();
@@ -43,6 +48,14 @@ export class AppComponent implements OnInit {
     //       console.error(error);
     //     },
     //   );
+  }
+
+  ngAfterViewInit(): void {
+    // if (!this.isLoggedIn) {
+    //   window['VK'].Widgets.Auth('vk_auth', {
+    //     'onAuth': function(data) {alert(`user ${data['uid']} authorized`); }
+    //   });
+    // }
   }
 
   logout() {

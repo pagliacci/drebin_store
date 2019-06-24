@@ -5,6 +5,7 @@ export class User {
     username: string;
     password?: string;
     mainQuestStage: MainQuestStage;
+    numberOfQuestInCurrentAct: number;
     drebinPoints: number;
     token: string;
     canManageUsers: boolean;
@@ -23,6 +24,7 @@ export class User {
             this.username = user.username;
             this.password = user.password;
             this.mainQuestStage = user.mainQuestStage;
+            this.numberOfQuestInCurrentAct = user.numberOfQuestInCurrentAct;
             this.drebinPoints = user.drebinPoints;
             this.token = user.token;
             this.canManageUsers = user.canManageUsers;

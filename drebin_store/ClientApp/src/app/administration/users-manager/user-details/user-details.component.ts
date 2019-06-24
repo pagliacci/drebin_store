@@ -21,7 +21,7 @@ export class UserDetailsComponent implements OnChanges {
 
   questStages: QuestStage[];
 
-  dpIncrements = [50, 100, 500];
+  dpIncrements = [-500, -100, -50, 50, 100, 500];
 
   constructor(
     private usersManagerService: UsersManagerService,
@@ -29,13 +29,27 @@ export class UserDetailsComponent implements OnChanges {
   ) { }
 
   grantPoints(increment: number) {
-    this.user.drebinPoints += increment;
-    this.usersManagerService.updateUser(this.user).subscribe(u => this.user = u);
+    const user = this.cloneUser(this.user);
+    user.drebinPoints += increment;
+    this.usersManagerService.updateUser(user); // .then(u => this.user = u);
   }
 
   updateMainQuestStage(newStage: QuestStage) {
-    this.user.mainQuestStage = newStage.stage;
-    this.usersManagerService.updateUser(this.user).subscribe(u => this.user = u);
+    const user = this.cloneUser(this.user);
+    user.mainQuestStage = newStage.stage;
+    this.usersManagerService.updateUser(user); // .then(u => this.user = u);
+  }
+
+  updateCurrentQuest(questNumber: number) {
+    const user = this.cloneUser(this.user);
+    user.numberOfQuestInCurrentAct = questNumber;
+    this.usersManagerService.updateUser(user); // .then(u => this.user = u);
+    this.changeDetectorRef.detectChanges();
+    this.changeDetectorRef.markForCheck();
+  }
+
+  private cloneUser(user: User) {
+    return Object.assign(new User(), user);
   }
 
   handleGoBackClick() {
@@ -44,6 +58,15 @@ export class UserDetailsComponent implements OnChanges {
 
   sendNotification() {
     this.usersManagerService.sendNotification(this.user.id);
+  }
+
+  isIncrementDisabled(increment: number) {
+    return this.user.drebinPoints + increment < 0;
+  }
+
+  getQuestsForActButtons() {
+    const numberOfQuests = this.usersManagerService.getNumberOfQuests(this.user.mainQuestStage);
+    return Array.from({length: numberOfQuests}, (v, k) => k);
   }
 
   ngOnChanges(changes: SimpleChanges) {

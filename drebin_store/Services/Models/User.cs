@@ -14,6 +14,8 @@
 
         public MainQuestStageEnum MainQuestStage { get; set; }
 
+        public int NumberOfQuestInCurrentAct { get; set; }
+
         public bool BriefingPassed { get; set; }
 
         public string NotificationSubscriptionString { get; set; }

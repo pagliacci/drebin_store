@@ -22,7 +22,10 @@ export class OrdersListComponent {
   get ordersToDisplay() {
     return this.orders &&
       this.orders
-        .filter(o => (!this.filterValue || o.user.username.indexOf(this.filterValue) >= 0))
+        .filter(o =>
+          !this.filterValue ||
+          o.user.username.toLowerCase().indexOf(this.filterValue.toLowerCase()) >= 0 ||
+          o.user.id.toString().indexOf(this.filterValue) >= 0)
         .filter(o => (!this.includeCompletedOrders || o.orderState === OrderState.inProgress));
   }
 

@@ -6,13 +6,31 @@
 <div
   class="user-info">
   <div>
+    Id: {{ user.id }}
+  </div>
+  <div>
     Username: {{ user.username }}
   </div>
   <div>
-    Quest Stage: {{ user.mainQuestStage }}
+    Quest Stage: {{ user.mainQuestStage + 1 }}
+  </div>
+  <div>
+    Quest on current stage: {{ user.numberOfQuestInCurrentAct + 1 }}
   </div>
   <div>
     Drebin Points: {{ user.drebinPoints }}
+  </div>
+  <div>
+    Briefing Passed: {{ user.briefingPassed }}
+  </div>
+  <div>
+    Can Manager Users : {{ user.canManageUsers }}
+  </div>
+  <div>
+    Can Manage Orders: {{ user.canManageOrders }}
+  </div>
+  <div>
+    Can Manage Products: {{ user.canManageProducts }}
   </div>
 </div>
 <div
@@ -25,8 +43,23 @@
     <button
       *ngFor="let questStage of questStages"
       [class.disabled]="!questStage.isAvailable"
+      [class.current]="questStage.isCurrentStage"
       (click)="updateMainQuestStage(questStage)">
       {{ questStage.title }}
+    </button>
+  </div>
+</div>
+<div
+  class="act-quest-manager">
+  <h4>
+    Quest in current act
+  </h4>
+  <div>
+    <button
+      *ngFor="let quest of getQuestsForActButtons()"
+      [class.current]="user.numberOfQuestInCurrentAct == quest"
+      (click)="updateCurrentQuest(quest)">
+      {{ quest + 1 }}
     </button>
   </div>
 </div>
@@ -39,6 +72,7 @@
     class="dp-increments">
     <button
       *ngFor="let increment of dpIncrements"
+      [disabled]="isIncrementDisabled(increment)"
       (click)="grantPoints(increment)">
       {{ increment }}
     </button>

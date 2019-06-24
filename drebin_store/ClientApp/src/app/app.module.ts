@@ -17,6 +17,7 @@ import { CodecModule } from './codec/codec.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AdministrationModule } from './administration/administration.module';
+import { IntroComponent } from './intro/intro.component';
 // import { AngularFireModule } from '@angular/fire';
 // import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
@@ -29,7 +30,8 @@ import { AdministrationModule } from './administration/administration.module';
     DrebinPointsPipe,
     FinalScreenComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    IntroComponent
   ],
   imports: [
     BrowserModule,

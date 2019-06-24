@@ -1,3 +1,20 @@
+<div
+  class="filtering-controls">
+
+  <div
+    class="filter-group">
+
+    <label
+      for="filter-input">
+      Filter users by user name or id:
+    </label>
+
+    <input 
+      id="filter-input"
+      (input)="handleFilterInput($event.target.value)">
+  </div>
+</div>
+
 <table
   class="users-list">
   <thead
@@ -15,7 +32,7 @@
       <th>
         DP
       </th>
-      <th>
+      <!-- <th>
         Can Manage Users
       </th>
       <th>
@@ -23,19 +40,19 @@
       </th>
       <th>
         Can Manage Products
-      </th>
+      </th> -->
     </tr>
   </thead>
   <tbody
     class="body">
     <tr
-      *ngFor="let user of users"
+      *ngFor="let user of usersToDisplay"
       (click)="handleClick(user)">
       <td>
         {{ user.username }}
       </td>
       <td>
-        {{ user.mainQuestStage }}
+        {{ getUserQuestStage(user) }}
       </td>
       <td>
         {{ user.briefingPassed ? 'V' : 'X' }}
@@ -44,7 +61,7 @@
         {{ user.drebinPoints }}
       </td>
       <!-- TODO: replace with optimized (https://icomoon.io/app/#/select/font) font awesome -->
-      <td>
+      <!-- <td>
         {{ user.canManageUsers ? 'V' : 'X' }}
       </td>
       <td>
@@ -52,7 +69,7 @@
       </td>
       <td>
         {{ user.canManageProducts ? 'V' : 'X' }}
-      </td>
+      </td> -->
     </tr>
   </tbody>
 </table>

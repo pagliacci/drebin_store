@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SignalrService } from './signalr.service';
 import { SwPush } from '@angular/service-worker';
+import { LastSeenCodecEntry } from '../models/last-seen-codec-entry';
 
 const loginUrl = './api/users/authenticate';
 const registerUrl = './api/users/register';
@@ -112,5 +113,17 @@ export class UserService {
 
     private set localStorageUser(user: User) {
         localStorage.setItem('currentUser', JSON.stringify(user));
+    }
+
+    getLastSeenCodecEntry(codecContactName: string): LastSeenCodecEntry {
+        return Object.assign(new LastSeenCodecEntry(), JSON.parse(localStorage.getItem(this.getLastSeenEntryKey(codecContactName))));
+    }
+
+    setLastSeenCodecEntry(entry: LastSeenCodecEntry, codecContactName: string) {
+        localStorage.setItem(this.getLastSeenEntryKey(codecContactName), JSON.stringify(entry));
+    }
+
+    private getLastSeenEntryKey(codecContactName: string): string {
+        return `lastSeenCodecEntry.${codecContactName}`;
     }
 }

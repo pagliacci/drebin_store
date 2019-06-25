@@ -11,7 +11,10 @@ const sendNotificationUrl = '/api/administration/sendNotification';
 
 const questsPerAct = {
   [MainQuestStage.Act1]: 8,
-  [MainQuestStage.Act2]: 3
+  [MainQuestStage.Act2]: 3,
+  [MainQuestStage.Act3]: 4,
+  [MainQuestStage.Act4]: 5,
+  [MainQuestStage.Act5]: 5
 };
 
 @Injectable({

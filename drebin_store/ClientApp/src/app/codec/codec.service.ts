@@ -15,7 +15,7 @@ export class CodecService {
         return CodecContacts.list.find(c => c.frequency === frequency);
     }
 
-    getCodecData(contact: CodecContact): Call[] | MultiMessageCall {
+    getCodecData(contact: CodecContact): Call[] | MultiMessageCall[] {
         const currentUser = this.userService.currentUser;
         const mainQuestStage = currentUser.mainQuestStage;
         const numberOfQuestInCurrentAct = currentUser.numberOfQuestInCurrentAct;
@@ -27,7 +27,7 @@ export class CodecService {
         return data;
     }
 
-    getAvailableContacts() {
+    getAvailableContacts(): CodecContact[] {
         const currentUser = this.userService.currentUser;
         return AvailableContacts[currentUser.mainQuestStage][currentUser.numberOfQuestInCurrentAct];
     }

@@ -34,5 +34,4 @@ export class BriefingComponent {
   getContent(rawContent: string): string {
     return rawContent.replace(new RegExp(usernamePlaceholder, 'g'), this.userService.currentUser.username);
   }
-
 }

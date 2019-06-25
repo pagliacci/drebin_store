@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CodecContacts } from '../codec-contacts';
+import { Component, OnInit, ChangeDetectionStrategy, HostBinding, AfterViewInit } from '@angular/core';
 import { CodecService } from '../codec.service';
+import { CodecContact } from '../models/codec-contact';
 
 @Component({
   selector: 'app-codec-home',
@@ -10,9 +10,12 @@ import { CodecService } from '../codec.service';
 })
 export class CodecHomeComponent {
 
-  constructor(private codecService: CodecService) { }
+  availableContacts: CodecContact[];
 
-  get availableContacts() {
-    return this.codecService.getAvailableContacts();
+  constructor(codecService: CodecService) {
+    this.availableContacts = codecService.getAvailableContacts();
+    this.isNotWorking = this.availableContacts.length === 0;
   }
+
+  @HostBinding('class.not-working') isNotWorking = false;
 }

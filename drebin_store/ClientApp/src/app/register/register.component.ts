@@ -23,7 +23,8 @@ export class RegisterComponent implements OnInit {
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
             username: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-            password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+            password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+            vkId: ['']
         });
 
         this.registerForm.valueChanges.subscribe(() => this.shouldShowValidation = false);

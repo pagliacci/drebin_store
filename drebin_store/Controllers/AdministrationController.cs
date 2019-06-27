@@ -114,7 +114,19 @@ namespace drebin_store.Controllers
         public async Task SendNotification([FromBody]int userId)
         {
             var user = _userService.GetById(userId);
-            _webPushService.SendNotification(user); // TODO: add check whether notification was sent or not?
+            var notification = new Notification
+            {
+                Title = "MGS зовёт!",
+                Body = "Нет времени объяснять, вот тебе картинка goatse из интернетов!",
+                Dir = "auto",
+                Icon = "https://memepedia.ru/wp-content/uploads/2018/10/goatse-donuts.png",
+                Badge = "https://panfilov.dev/assets/fox_transparent_background.png",
+                Renotify = true,
+                Lang = "en",
+                RequireInteraction = false,
+                Vibrate = new[] { 200, 100, 200 }
+            };
+            _webPushService.SendNotification(user, notification); // TODO: add check whether notification was sent or not?
         }
     }
 }

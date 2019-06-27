@@ -1,7 +1,8 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClientJsonpModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatMenuModule, MatIcon } from '@angular/material';
 import { FinalScreenComponent } from 'src/app/final-screen/final-screen.component';
 import { DrebinPointsPipe } from 'src/app/store/pipes/drebin-points.pipe';
 import { ProductCardComponent } from 'src/app/store/product-card/product-card.component';
@@ -37,6 +38,7 @@ import { IntroComponent } from './intro/intro.component';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpClientJsonpModule,
     CodecModule,
     AdministrationModule,
     AppRoutingModule,
@@ -44,6 +46,8 @@ import { IntroComponent } from './intro/intro.component';
     ServiceWorkerModule.register('/firebase-messaging-sw.js', { enabled: environment.production }),
     // AngularFireModule.initializeApp(environment.firebase),
     // AngularFireMessagingModule
+    MatMenuModule,
+    MatIcon
   ],
   providers: [
     UserService,

@@ -4,6 +4,6 @@ namespace drebin_store.Services
 {
     public interface IWebPushService
     {
-        void SendNotification(User user);
+        void SendNotification(User user, Notification notification);
     }
 }

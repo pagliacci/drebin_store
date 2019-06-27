@@ -21,11 +21,20 @@
       routerLinkActive="active">
       Drebin Store
     </a>
-    <a 
-      class="logout-link" 
-      (click)="logout()">
-      Logout
-    </a>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <div mat-menu-item>
+        {{ user.id / user.username }}
+      </div>
+      <button
+        mat-menu-item
+        (click)="logout()">
+        Logout
+      </button>
+      <!-- <button mat-menu-item>Item 2</button> -->
+    </mat-menu>
   </nav>
 </div>
 <div

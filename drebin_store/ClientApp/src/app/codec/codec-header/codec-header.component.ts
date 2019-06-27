@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { CodecContact } from '../models/codec-contact';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-codec-header',
@@ -11,5 +12,14 @@ export class CodecHeaderComponent {
 
   @Input()
   contact: CodecContact;
+
+  userAvatarPath: string;
+
+  constructor(private userService: UserService) {
+    const currentUser = userService.currentUser;
+    this.userAvatarPath = currentUser.vkData ?
+      currentUser.vkData.photo_100 :
+      userService.getAvatarPath(currentUser.id);
+  }
 
 }

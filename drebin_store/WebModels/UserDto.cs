@@ -20,6 +20,8 @@ namespace drebin_store.WebModels
 
         public bool BriefingPassed { get; set; }
 
+        public string VkId { get; set; }
+
         public bool CanManageUsers { get; set; }
 
         public bool CanManageOrders { get; set; }

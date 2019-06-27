@@ -1,4 +1,5 @@
-import { Component, OnDestroy, AfterViewInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, DoCheck } from '@angular/core';
+import {
+    Component, OnDestroy, AfterViewInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, HostBinding, ElementRef } from '@angular/core';
 import { IndicatorBar } from './indicator-bar';
 
 @Component({
@@ -11,6 +12,9 @@ export class SignalIndicatorComponent implements AfterViewInit, OnDestroy {
 
     @Input()
     frequency: string;
+
+    @HostBinding('style.--component-width.px')
+    private componentWidth: number;
 
     interval: number;
 
@@ -26,7 +30,7 @@ export class SignalIndicatorComponent implements AfterViewInit, OnDestroy {
         new IndicatorBar(12),
     ];
 
-    constructor(private changeDetector: ChangeDetectorRef) {}
+    constructor(private changeDetector: ChangeDetectorRef, private elementRef: ElementRef) { }
 
     async ngAfterViewInit() {
         await this.highlightBars(7);
@@ -36,6 +40,8 @@ export class SignalIndicatorComponent implements AfterViewInit, OnDestroy {
             const timeout = this.getRandomInt(10, 100);
             await this.highlightBars(nextValue, timeout);
         }, 500);
+
+        this.componentWidth = this.elementRef.nativeElement.offsetWidth;
     }
 
     highlightBars(numberOfBars: number, timeout: number = 50) {

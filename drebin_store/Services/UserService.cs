@@ -66,18 +66,35 @@ namespace drebin_store.Services
             {
                 existingUser.BriefingPassed = false;
                 existingUser.NumberOfQuestInCurrentAct = 0;
-                _webPushService.SendNotification(user);
+                _webPushService.SendNotification(existingUser, GetNotification(user));
             } else
             {
                 existingUser.NumberOfQuestInCurrentAct = user.NumberOfQuestInCurrentAct;
             }
             existingUser.DrebinPoints = user.DrebinPoints;
             existingUser.MainQuestStage = user.MainQuestStage;
+            existingUser.VkId = user.VkId;
 
             var updatedUser = _databaseContext.Users.Update(existingUser).Entity;
             _databaseContext.SaveChanges();
 
             return updatedUser;
+        }
+
+        private Notification GetNotification(User user)
+        {
+            return new Notification
+            {
+                Title = "Проверь кодек!",
+                Body = $"{user.Username}, новый брифинг ждёт тебя!",
+                Dir = "auto",
+                Badge = "https://panfilov.dev/assets/fox_transparent_background.png",
+                Image = "https://panfilov.dev/assets/codec/otacon.jpg",
+                Renotify = true,
+                Lang = "en",
+                RequireInteraction = false,
+                Vibrate = new[] { 200, 100, 200 }
+            };
         }
 
         public User GetById(int id)

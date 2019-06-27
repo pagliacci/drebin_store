@@ -12,6 +12,21 @@
     Username: {{ user.username }}
   </div>
   <div>
+    VK ID: {{ user.vkId || 'N/A' }}
+  </div>
+  <div>
+    VK Link: 
+    <a
+      *ngIf="user.vkId" 
+      [href]="getVkLink()">
+      {{ getVkLink() }}
+    </a>
+    <span
+      *ngIf="!user.vkId">
+      N/A
+    </span>
+  </div>
+  <div>
     Quest Stage: {{ user.mainQuestStage + 1 }}
   </div>
   <div>

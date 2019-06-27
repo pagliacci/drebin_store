@@ -27,4 +27,4 @@ PSQL магия:
 	\c drebin_store
 
 	Выполнить sql скрипт:
-	\i /migrate.sql
+	\i /migration.sql

@@ -32,6 +32,8 @@ export class BriefingComponent {
   }
 
   getContent(rawContent: string): string {
-    return rawContent.replace(new RegExp(usernamePlaceholder, 'g'), this.userService.currentUser.username);
+    const user = this.userService.currentUser;
+    const name = user.vkData != null && user.vkData.first_name ? user.vkData.first_name : user.username;
+    return rawContent.replace(new RegExp(usernamePlaceholder, 'g'), name);
   }
 }

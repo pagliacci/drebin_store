@@ -21,7 +21,7 @@ export class UserDetailsComponent implements OnChanges {
 
   questStages: QuestStage[];
 
-  dpIncrements = [-500, -100, -50, 50, 100, 500];
+  dpIncrements = [-10000, -5000, -1000, -500, 500, 1000, 5000, 10000];
 
   constructor(
     private usersManagerService: UsersManagerService,
@@ -31,19 +31,19 @@ export class UserDetailsComponent implements OnChanges {
   grantPoints(increment: number) {
     const user = this.cloneUser(this.user);
     user.drebinPoints += increment;
-    this.usersManagerService.updateUser(user); // .then(u => this.user = u);
+    this.usersManagerService.updateUser(user);
   }
 
   updateMainQuestStage(newStage: QuestStage) {
     const user = this.cloneUser(this.user);
     user.mainQuestStage = newStage.stage;
-    this.usersManagerService.updateUser(user); // .then(u => this.user = u);
+    this.usersManagerService.updateUser(user);
   }
 
   updateCurrentQuest(questNumber: number) {
     const user = this.cloneUser(this.user);
     user.numberOfQuestInCurrentAct = questNumber;
-    this.usersManagerService.updateUser(user); // .then(u => this.user = u);
+    this.usersManagerService.updateUser(user);
     this.changeDetectorRef.detectChanges();
     this.changeDetectorRef.markForCheck();
   }
@@ -67,6 +67,10 @@ export class UserDetailsComponent implements OnChanges {
   getQuestsForActButtons() {
     const numberOfQuests = this.usersManagerService.getNumberOfQuests(this.user.mainQuestStage);
     return Array.from({length: numberOfQuests}, (v, k) => k);
+  }
+
+  getVkLink() {
+    return this.user.vkId != null ? `https://vk.com/${this.user.vkId}` : 'N/A';
   }
 
   ngOnChanges(changes: SimpleChanges) {

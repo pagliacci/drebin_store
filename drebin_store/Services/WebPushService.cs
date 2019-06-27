@@ -14,39 +14,45 @@ namespace drebin_store.Services
             _webPushClient = webPushClient;
         }
 
-        public void SendNotification(User user) {
+        public void SendNotification(User user, Notification notification) {
             if (user.NotificationSubscriptionString != null)
             {
                 var notificationData = JsonConvert.DeserializeObject<NotificationSubscription>(user.NotificationSubscriptionString);
                 var pushSubscription = new PushSubscription(notificationData.Endpoint, notificationData.Keys.P256DH, notificationData.Keys.Auth);
 
-                var payload = new Notification
-                {
-                    Title = "MGS зовёт!",
-                    Actions = new List<Action>
-                    {
-                        new Action
-                        {
-                            ActionType = "qwe",
-                            Title = "asd"
-                        }
-                    },
-                    Body = "Нет времени объяснять, вот тебе картинка goatse из интернетов!",
-                    Dir = "auto",
-                    Icon = "https://memepedia.ru/wp-content/uploads/2018/10/goatse-donuts.png",
-                    Badge = "https://memepedia.ru/wp-content/uploads/2018/10/goatse-donuts.png",
-                    Renotify = true,
-                    Lang = "en",
-                    RequireInteraction = true,
-                    Vibrate = new[] { 200, 100, 200 }
-                };
+                //var payload = new Notification
+                //{
+                //    Title = "MGS зовёт!",
+                //    //Actions = new List<Action>
+                //    //{
+                //    //    new Action
+                //    //    {
+                //    //        ActionType = "qwe",
+                //    //        Title = "asd"
+                //    //    }
+                //    //},
+                //    Body = "Нет времени объяснять, вот тебе картинка goatse из интернетов!",
+                //    Dir = "auto",
+                //    Icon = "https://memepedia.ru/wp-content/uploads/2018/10/goatse-donuts.png",
+                //    Badge = "https://memepedia.ru/wp-content/uploads/2018/10/goatse-donuts.png",
+                //    Renotify = true,
+                //    Lang = "en",
+                //    RequireInteraction = false,
+                //    Vibrate = new[] { 200, 100, 200 }
+                //};
 
                 var subject = "mailto:example@example.com";
                 var publicKey = "BFA1LB2pb5WGs8zN5wCdEubKsqvqpCqwGQ9tEjBUBouZ2bzO-4eBOtmt0-a3Oz-BAZqwQO1WMaroK_JdwWiwiMQ";
                 var privateKey = "TxI1I9J-pCSiOB5FzKt71J1mZByoUla-Ybnrj3loMaM";
                 var vapidDetails = new VapidDetails(subject, publicKey, privateKey);
 
-                _webPushClient.SendNotification(pushSubscription, JsonConvert.SerializeObject(new { notification = payload }), vapidDetails);
+                try {
+
+                    _webPushClient.SendNotification(pushSubscription, JsonConvert.SerializeObject(new { notification }), vapidDetails);
+                } catch
+                {
+                    // no errors here
+                }
             }
         }
     }

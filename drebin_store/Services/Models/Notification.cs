@@ -17,6 +17,8 @@ namespace drebin_store.Services.Models
 
         public string Badge { get; set; }
 
+        public string Image { get; set; }
+
         public string Lang { get; set; }
 
         public bool Renotify { get; set; }

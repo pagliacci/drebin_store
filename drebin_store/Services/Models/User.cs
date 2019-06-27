@@ -20,6 +20,8 @@
 
         public string NotificationSubscriptionString { get; set; }
 
+        public string VkId { get; set; }
+
         // Could be moved to permissions entity
 
         public bool CanManageUsers { get; set; }

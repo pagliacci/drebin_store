@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.loginForm.controls.password.valueChanges
             .subscribe(r => this.clearLoginError());
 
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     }
 
     private clearLoginError() {
@@ -51,12 +51,21 @@ export class LoginComponent implements OnInit {
         this.userService.login(controls.username.value, controls.password.value)
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
-                    this.userService.updateNotificationInfo();
+                    // this.router.navigate([this.returnUrl]);
+                    // this.userService.updateNotificationInfo();
                 },
                 error => {
-                    this.isLoading = false;
-                    this.error = 'Unable to login. Check your login and password';
+                    // this.isLoading = false;
+                    // this.error = 'Unable to login. Check your login and password';
                 });
+        this.userService.currentUserSubj.subscribe(
+            data => {
+                this.router.navigate([this.returnUrl]);
+                this.userService.updateNotificationInfo();
+            },
+            error => {
+                this.isLoading = false;
+                this.error = 'Unable to login. Check your login and password';
+            });
     }
 }

@@ -10,18 +10,19 @@
         [innerHtml]="getContent(codecCall.message)">
     </div>
 
-    <div
-        class="codec-buttons">
+    <!-- <div
+        class="codec-buttons"> -->
 
         <a
+            class="next-button"
             (click)="handleMainButtonClick()">
             {{ codecCall.reply }}
         </a>
 
-        <a
+        <!-- <a
             *ngIf="codecCall.altReply"
             (click)="handleAltButtonClick()">
             {{ codecCall.altReply }}
-        </a>
-    </div>
+        </a> -->
+    <!-- </div> -->
 </div>

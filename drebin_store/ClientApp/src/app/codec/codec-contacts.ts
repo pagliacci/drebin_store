@@ -8,7 +8,7 @@ export class CodecContacts {
     static meryl = getContact('Meryl', '140.15');
     static colonel = getContact('Colonel', '140.85');
     static naomi = getContact('Naomi', '140.89');
-    static meiLing = getContact('Mei Ling', 'TBA');
+    static meiLing = getContact('Mei Ling', '140.96');
 
     static list = [
         CodecContacts.otacon,
@@ -26,6 +26,6 @@ function getContact(name: string, frequency: string): CodecContact {
     return {
         name: name,
         frequency: frequency,
-        viewUrl: `./assets/codec/${name.toLowerCase()}.jpg`
+        viewUrl: `./assets/codec/${name.toLowerCase().replace(' ', '_')}.jpg`
     };
 }

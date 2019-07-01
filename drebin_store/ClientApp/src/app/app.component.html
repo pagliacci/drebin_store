@@ -7,7 +7,7 @@
       class="nav-tab"
       routerLink="/administration"
       routerLinkActive="aactive">
-      Administration
+      Админко
     </a>
     <a 
       class="nav-tab" 
@@ -26,19 +26,18 @@
     </button>
     <mat-menu #menu="matMenu">
       <div mat-menu-item>
-        {{ user.id / user.username }}
+        {{ getUsernameIdString() }}
       </div>
       <button
         mat-menu-item
         (click)="logout()">
         Logout
       </button>
-      <!-- <button mat-menu-item>Item 2</button> -->
     </mat-menu>
   </nav>
 </div>
-<div
+<!-- <div
   *ngIf="!isLoggedIn"
-  id="vk_auth"></div>
+  id="vk_auth"></div> -->
 
 <router-outlet></router-outlet>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using drebin_store.Helpers;
 using drebin_store.Services;
 using drebin_store.Services.Models;
 using drebin_store.SignalRHubs;
@@ -50,7 +51,7 @@ namespace drebin_store.Controllers
         public async Task<UserDto> UpdateUser(UserDto userDto)
         {
             var user = _mapper.Map<User>(userDto);
-            var updatedUser = await _userService.Update(user);
+            var updatedUser = await _userService.Update(user, this.GetCurrentUserId());
 
             var updatedUserDto = _mapper.Map<UserDto>(updatedUser);
 

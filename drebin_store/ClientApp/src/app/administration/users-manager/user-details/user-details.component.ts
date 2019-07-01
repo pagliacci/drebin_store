@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { UsersManagerService } from '../services/users-manager.service';
 import { QuestStage } from './quest-stage.model';
 import { MainQuestStage, MainQuestStageMap } from 'src/app/models/main-quest-stage';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-details',
@@ -23,10 +24,15 @@ export class UserDetailsComponent implements OnChanges {
 
   dpIncrements = [-10000, -5000, -1000, -500, 500, 1000, 5000, 10000];
 
+  currentUser: User;
+
   constructor(
     private usersManagerService: UsersManagerService,
+    private userService: UserService,
     private changeDetectorRef: ChangeDetectorRef
-  ) { }
+  ) {
+    this.currentUser = userService.currentUser;
+  }
 
   grantPoints(increment: number) {
     const user = this.cloneUser(this.user);
@@ -71,6 +77,30 @@ export class UserDetailsComponent implements OnChanges {
 
   getVkLink() {
     return this.user.vkId != null ? `https://vk.com/${this.user.vkId}` : 'N/A';
+  }
+
+  handleCanManageUsersChange(value: boolean) {
+    const user = this.cloneUser(this.user);
+    user.canManageUsers = value;
+    this.usersManagerService.updateUser(user);
+  }
+
+  handleCanManageOrdersChange(value: boolean) {
+    const user = this.cloneUser(this.user);
+    user.canManageOrders = value;
+    this.usersManagerService.updateUser(user);
+  }
+
+  handleCanManageProductsChange(value: boolean) {
+    const user = this.cloneUser(this.user);
+    user.canManageProducts = value;
+    this.usersManagerService.updateUser(user);
+  }
+
+  handleCanManagePermissionsChange(value: boolean) {
+    const user = this.cloneUser(this.user);
+    user.canManagePermissions = value;
+    this.usersManagerService.updateUser(user);
   }
 
   ngOnChanges(changes: SimpleChanges) {

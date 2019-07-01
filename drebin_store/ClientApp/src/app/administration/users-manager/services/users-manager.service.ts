@@ -39,6 +39,10 @@ export class UsersManagerService {
             mappedUser.drebinPoints = user.drebinPoints;
             mappedUser.mainQuestStage = user.mainQuestStage;
             mappedUser.numberOfQuestInCurrentAct = user.numberOfQuestInCurrentAct;
+            mappedUser.canManageUsers = user.canManageUsers;
+            mappedUser.canManageOrders = user.canManageOrders;
+            mappedUser.canManageProducts = user.canManageProducts;
+            mappedUser.canManagePermissions = user.canManagePermissions;
           }
           return mappedUser;
         });

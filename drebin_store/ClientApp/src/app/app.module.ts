@@ -2,7 +2,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS, HttpClientJsonpModule } from '@ang
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatMenuModule, MatIcon } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { FinalScreenComponent } from 'src/app/final-screen/final-screen.component';
 import { DrebinPointsPipe } from 'src/app/store/pipes/drebin-points.pipe';
 import { ProductCardComponent } from 'src/app/store/product-card/product-card.component';
@@ -36,6 +37,7 @@ import { IntroComponent } from './intro/intro.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
@@ -47,7 +49,8 @@ import { IntroComponent } from './intro/intro.component';
     // AngularFireModule.initializeApp(environment.firebase),
     // AngularFireMessagingModule
     MatMenuModule,
-    MatIcon
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     UserService,

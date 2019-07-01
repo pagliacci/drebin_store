@@ -39,7 +39,7 @@
     Briefing Passed: {{ user.briefingPassed }}
   </div>
   <div>
-    Can Manager Users : {{ user.canManageUsers }}
+    Can Manage Users : {{ user.canManageUsers }}
   </div>
   <div>
     Can Manage Orders: {{ user.canManageOrders }}
@@ -92,6 +92,74 @@
       {{ increment }}
     </button>
   </div>
+</div>
+<div
+  *ngIf="currentUser.canManagePermissions"
+  class="notifications-manager">
+  <h4>
+    Edit permissions
+  </h4>
+
+  <div
+    class="checkbox-group">
+
+    <label
+      for="can-manage-users">
+      Can manage users:
+    </label>
+
+    <input
+      id="can-manage-users"
+      type="checkbox"
+      [checked]="user.canManageUsers"
+      (change)="handleCanManageUsersChange($event.target.checked)">
+  </div>
+
+  <div
+    class="checkbox-group">
+
+    <label
+      for="can-manage-orders">
+      Can manage orders:
+    </label>
+
+    <input
+      id="can-manage-orders"
+      type="checkbox"
+      [checked]="user.canManageOrders"
+      (change)="handleCanManageOrdersChange($event.target.checked)">
+  </div>
+
+  <div
+    class="checkbox-group">
+
+    <label
+      for="can-manage-products">
+      Can manage products:
+    </label>
+
+    <input
+      id="can-manage-products"
+      type="checkbox"
+      [checked]="user.canManageProducts"
+      (change)="handleCanManageProductsChange($event.target.checked)">
+  </div>
+
+  <div
+    class="checkbox-group">
+
+    <label
+      for="can-manage-permissions">
+      Can manage permissions:
+    </label>
+
+    <input
+      id="can-manage-permissions"
+      type="checkbox"
+      [checked]="user.canManagePermissions"
+      (change)="handleCanManagePermissionsChange($event.target.checked)">
+  </div>
+
 </div>
 <div
   class="notifications-manager">

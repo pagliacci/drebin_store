@@ -28,6 +28,8 @@ namespace drebin_store.WebModels
 
         public bool CanManageProducts { get; set; }
 
+        public bool CanManagePermissions { get; set; }
+
         public bool HasNotificationSubscription { get; set; }
     }
 }

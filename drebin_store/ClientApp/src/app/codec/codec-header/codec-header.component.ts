@@ -18,7 +18,7 @@ export class CodecHeaderComponent {
   constructor(private userService: UserService) {
     const currentUser = userService.currentUser;
     this.userAvatarPath = currentUser.vkData ?
-      currentUser.vkData.photo_100 :
+      currentUser.vkData.photo_200 :
       userService.getAvatarPath(currentUser.id);
   }
 

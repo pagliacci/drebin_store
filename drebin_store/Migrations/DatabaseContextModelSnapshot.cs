@@ -86,6 +86,8 @@ namespace drebin_store.Migrations
 
                     b.Property<bool>("CanManageOrders");
 
+                    b.Property<bool>("CanManagePermissions");
+
                     b.Property<bool>("CanManageProducts");
 
                     b.Property<bool>("CanManageUsers");

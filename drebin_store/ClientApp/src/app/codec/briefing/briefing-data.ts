@@ -1021,6 +1021,7 @@ export const briefingData: Act[] = [
                 ]
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     getImgTag(4, 'page_3.jpg'),
                     `
@@ -1059,10 +1060,11 @@ export const briefingData: Act[] = [
                     `
                     Это что еще такое, черт возьми…?!
                     `,
-                    getImgTag(4, 'page_7.jpf')
+                    getImgTag(4, 'page_7.jpg')
                 ]
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     `
                     Видеосигнал от Марк 2 обрывается здесь. Первоначально Система Патриотов управлялась четырьмя системами искусственного интеллекта, с JD во главе. Одним из них был GW. Патриоты думали, что он уничтожен. Но Ликвиду удалось использовать его как прикрытие, чтобы проскользнуть в Систему.
@@ -1071,6 +1073,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Убежище… и GW… Я так и знал, что слышал это название прежде.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     getImgTag(4, 'page_9_1.jpg'),
                     `
@@ -1085,6 +1088,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Убежище в сети… Вне надзора ИИ Патриотов.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     `
                     Теперь все это обретает смысл. Именно поэтому они позволили Арсеналу слететь с катушек пять лет назад. GW был у него на борту.
@@ -1094,6 +1098,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Где это убежище? Где их база?]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     `
                     Не волнуйся. Мей Линг использует координаты последнего сигнала Марк 2, чтобы вычислить курс корабля Ликвида. Мы найдем его, это только вопрос времени.
@@ -1102,6 +1107,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Но это не все, что сказал Ликвид… Еще что-то о готовности Рекса.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     `
                     Рекс? Ты хочешь сказать… Шэдоу Мозес.
@@ -1114,6 +1120,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Информация все равно под контролем, так или иначе.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     getImgTag(4, 'page_14.jpg'),
                     `
@@ -1123,6 +1130,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Они там, в Белом доме, наверное, сейчас дерьмом исходят.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     getImgTag(4, 'page_15.jpg'),
                     `
@@ -1133,6 +1141,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Но Ликвид контролирует только СП, а СП контролирует только личное и стрелковое оружие. Если он не получит высший приоритет, Ликвид не сможет использовать американское ядерное оружие и баллистические ракеты… Так как же он собирается нанести этот удар?]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     getImgTag(4, 'page_16.jpg'),
                     `
@@ -1147,6 +1156,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Раз Ликвид не может воспользоваться ядерными ракетами… То каков его план?]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     `
                     Вот оно! Он собирается использовать Рекс!
@@ -1156,6 +1166,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Что?]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     `
                     Рекс был списан, до внедрения Системы «Сыновья Патриотов».
@@ -1164,6 +1175,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Конечно… Рельсотрон.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     getImgTag(4, 'page_20.jpg'),
                     `
@@ -1175,6 +1187,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Остров Шэдоу Мозес.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     getImgTag(4, 'page_22.jpg'),
                     `
@@ -1184,6 +1197,7 @@ export const briefingData: Act[] = [
                 ]
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     `
                     Достаточно, %codename%. Хватит с тебя этого.
@@ -1196,6 +1210,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Дело не в победе или поражении. Я… Нет, мы начали это. И наш долг — закончить это.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     getImgTag(4, 'page_24_1.jpg'),
                     `
@@ -1209,6 +1224,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Прибытие туда Ликвида может означать только одно.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     `
                     Он действительно собирается использовать Рекса.
@@ -1228,6 +1244,7 @@ export const briefingData: Act[] = [
                 buttonText: '[Покинутый остров. Убежище.]'
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     getImgTag(4, 'page_28.jpg'),
                     `
@@ -1263,6 +1280,7 @@ export const briefingData: Act[] = [
                 buttonText: getImgTag(4, 'page_35.jpg')
             }),
             new Page({
+                codecContact: CodecContacts.otacon,
                 content: [
                     `
                     Все в порядке, %codename%?
@@ -1495,7 +1513,7 @@ export const briefingData: Act[] = [
                     `,
                     getImgTag(6, 'page_6.jpg'),
                     `
-                    Всё имеет начало… Но начинается не с «единицы». Всё начинается до неё…  в хаосе. Мир рождён из нуля. Момент превращения нуля в единицу, это момент, когда жизнь начинает расцветать. Из одного появляются два… Два становятся десятью… Десять становятся сотней. Возврат к единице ничего не решит. Пока остаётся ноль… единица… вновь перерастёт в сотню. 
+                    Всё имеет начало… Но начинается не с «единицы». Всё начинается до неё…  в хаосе. Мир рождён из нуля. Момент превращения нуля в единицу, это момент, когда жизнь начинает расцветать. Из одного появляются два… Два становятся десятью… Десять становятся сотней. Возврат к единице ничего не решит. Пока остаётся ноль… единица… вновь перерастёт в сотню.
                     Твоя цель, помочь нам обернуть ноль обратно в ничто. Готовься к реальным событиям. До связи, %codename%...
                     `
                 ]

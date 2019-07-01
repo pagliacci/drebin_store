@@ -29,5 +29,7 @@
         public bool CanManageOrders { get; set; }
 
         public bool CanManageProducts { get; set; }
+
+        public bool CanManagePermissions { get; set; }
     }
 }

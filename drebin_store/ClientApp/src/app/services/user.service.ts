@@ -3,8 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from 'src/app/models/user';
 import * as JwtDecode from 'jwt-decode';
 import { JwtToken } from '../models/jwt-token';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SignalrService } from './signalr.service';
 import { SwPush } from '@angular/service-worker';
@@ -22,7 +22,7 @@ const serverPublicKey = 'BFA1LB2pb5WGs8zN5wCdEubKsqvqpCqwGQ9tEjBUBouZ2bzO-4eBOtm
 const vkAccessToken = '82e0e6f082e0e6f082e0e6f00c828ba03a882e082e0e6f0dfee4a13a021eaaab027793d';
 const getVkUserUrl = `https://api.vk.com/method/users.get`;
 const vkVersion = '5.95';
-const vkFields = 'photo_100,domain';
+const vkFields = 'photo_200,domain';
 
 @Injectable({
     providedIn: 'root'
@@ -53,7 +53,9 @@ export class UserService {
                 const user = Object.assign(new User(), u);
                 if (user && user.token) {
                     if (user.vkId) {
-                        user.vkData = await this.getVkUserData(user);
+                        try {
+                            user.vkData = await this.getVkUserData(user);
+                        } catch (e) {}
                     }
                     this.currentUserSubj.next(user);
                     this.localStorageUser = user;
@@ -78,7 +80,9 @@ export class UserService {
             const user = Object.assign(new User(), u);
             user.token = this.currentUser.token;
             if (user.vkId) {
+                try {
                 user.vkData = await this.getVkUserData(user);
+                } catch (e) {}
             }
             this.localStorageUser = user;
             this.currentUserSubj.next(user);
@@ -146,10 +150,18 @@ export class UserService {
         const jsonpUrl = `${getVkUserUrl}?fields=${vkFields}&name_case=Nom&user_ids=${user.vkId}&access_token=${vkAccessToken}&v=${vkVersion}&callback=getVkUserDataHandler`;
         return new Promise<VkUser>((resolve, reject) => {
             window['getVkUserDataHandler'] = (r) => {
+                if (r.error) {
+                    reject(r);
+                    return;
+                }
                 const response = Object.assign(new VkUser(), r.response[0]);
                 resolve(response);
             };
-            this.http.jsonp<VkUser>(jsonpUrl, '').toPromise();
+
+            const observable = this.http.jsonp(jsonpUrl, 'getVkUserDataHandler').pipe(
+                catchError(val => of(`I caught: ${val}`))
+              );
+            observable.subscribe();
         });
     }
 

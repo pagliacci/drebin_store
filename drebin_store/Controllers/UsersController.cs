@@ -104,7 +104,7 @@ namespace drebin_store.Controllers
         {
             var user = _userService.GetById(userId);
             user.BriefingPassed = true;
-            var updatedUser = await _userService.Update(user);
+            var updatedUser = await _userService.Update(user, this.GetCurrentUserId());
             var result = _mapper.Map<UserDto>(updatedUser);
 
             await _hubContext.Clients.All.UpdateUser(result);

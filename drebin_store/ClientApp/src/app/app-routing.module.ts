@@ -10,9 +10,9 @@ import { IntroComponent } from './intro/intro.component';
 const appRoutes: Routes = [
   {
     path: '',
-    // redirectTo: '/codec',
-    // pathMatch: 'full',
-    component: IntroComponent,
+    redirectTo: '/codec',
+    pathMatch: 'full',
+    // component: IntroComponent,
     canActivate: [AuthGuard]
   },
   {

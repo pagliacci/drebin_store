@@ -13,6 +13,7 @@ export class User {
     canManageUsers: boolean;
     canManageOrders: boolean;
     canManageProducts: boolean;
+    canManagePermissions: boolean;
     hasNotificationSubscription: boolean;
     briefingPassed: boolean;
     vkData: VkUser;

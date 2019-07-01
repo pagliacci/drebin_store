@@ -56,11 +56,13 @@ namespace drebin_store.Services
             return savedUser;
         }
 
-        public async Task<User> Update(User user)
+        public async Task<User> Update(User user, int currentUserId)
         {
             var existingUser = await _databaseContext.Users.SingleOrDefaultAsync(u => u.Id == user.Id);
             if (existingUser == null)
                 throw new AppException("Not existing user");
+
+            var currentUser = await _databaseContext.Users.SingleOrDefaultAsync(u => u.Id == currentUserId);
 
             if (user.MainQuestStage != existingUser.MainQuestStage)
             {
@@ -74,6 +76,14 @@ namespace drebin_store.Services
             existingUser.DrebinPoints = user.DrebinPoints;
             existingUser.MainQuestStage = user.MainQuestStage;
             existingUser.VkId = user.VkId;
+
+            if (currentUser.CanManagePermissions && existingUser.Id != currentUser.Id)
+            {
+                existingUser.CanManageUsers = user.CanManageUsers;
+                existingUser.CanManageOrders = user.CanManageOrders;
+                existingUser.CanManageProducts = user.CanManageProducts;
+                existingUser.CanManagePermissions = user.CanManagePermissions;
+            }
 
             var updatedUser = _databaseContext.Users.Update(existingUser).Entity;
             _databaseContext.SaveChanges();
@@ -93,7 +103,8 @@ namespace drebin_store.Services
                 Renotify = true,
                 Lang = "en",
                 RequireInteraction = false,
-                Vibrate = new[] { 200, 100, 200 }
+                Vibrate = new[] { 200, 100, 200 },
+                Actions = new List<Models.Action>()
             };
         }
 

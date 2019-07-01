@@ -61,4 +61,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   logout() {
     this.userService.logout();
   }
+
+  getUsernameIdString() {
+    return `${this.user.username} (ID: ${this.user.id})`;
+  }
 }

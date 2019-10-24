@@ -28,3 +28,6 @@ PSQL магия:
 
 	Выполнить sql скрипт:
 	\i /migration.sql
+	
+	Показать список баз данных:
+	\l - show databases
